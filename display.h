@@ -10,6 +10,7 @@
 #define BOARD_REF "PLACER CARTE REF"
 #define ACQ "ATTENTE ACQUITTEMENT"
 #define FIN "FIN DE TEST"
+#define ANSWER "APPUYER SUR OK/NOK"
 
 
 void displayManager(char s1[], char s2[], char s3[], char s4[]);

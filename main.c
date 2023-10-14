@@ -333,8 +333,8 @@ void main(void) {
                 sortieErreur(&automatique, &testActif, &testVoyants);
             }
         }
-        
-         // ETAPE 12
+
+        // ETAPE 12
 
         if (testActif) {
 
@@ -353,8 +353,8 @@ void main(void) {
                 sortieErreur(&automatique, &testActif, &testVoyants);
             }
         }
-        
-         // ETAPE 13
+
+        // ETAPE 13
 
         if (testActif) {
 
@@ -373,8 +373,8 @@ void main(void) {
                 sortieErreur(&automatique, &testActif, &testVoyants);
             }
         }
-        
-          // ETAPE 14
+
+        // ETAPE 14
 
         if (testActif) {
 
@@ -393,9 +393,9 @@ void main(void) {
                 sortieErreur(&automatique, &testActif, &testVoyants);
             }
         }
-        
-        
-          // ETAPE 15
+
+
+        // ETAPE 15
 
         if (testActif) {
 
@@ -415,33 +415,49 @@ void main(void) {
             }
         }
 
-        /*
-         // ETAPE 16
-        
-         if (testActif) {
 
-             displayManager("ETAPE 3", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
-           
-             __delay_ms(800);
-             pressBP1(false);
-             if (testLeds) {
+        // ETAPE 16
 
-                 printf("Attente validation led rouge\r\n");
-                 testVoyants = reponseOperateur(automatique);
-                 if (!testVoyants) {
+        if (testActif) {
 
-                     testActif = false;
-                     alerteDefaut("ETAPE 3", &testActif, &testVoyants);
-                     sortieErreur(&automatique, &testActif, &testVoyants);
-                 }
-             }
+            displayManager("ETAPE 16", "TEST LEDS VERTES", LIGNE_VIDE, ANSWER);
+            modeBP(true);
+            IN48();
+            activerBP(true);
+            activerReed(false);
+            __delay_ms(800);
+            
+            printf("Attente validation led vertes\r\n");
+            testVoyants = reponseOperateur(automatique);
+            if (!testVoyants) {
+                
+                testActif = false;
+                alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+                sortieErreur(&automatique, &testActif, &testVoyants);
+            }
 
+        }
 
-         }
-         
-         */
+        // ETAPE 17
 
+        if (testActif) {
 
+            displayManager("ETAPE 17", "TEST LEDS BLEUES", LIGNE_VIDE, ANSWER);
+            IN48();
+            activerBP(true);
+            activerReed(true);
+            __delay_ms(800);
+            
+            printf("Attente validation leds bleues\r\n");
+            testVoyants = reponseOperateur(automatique);
+            if (!testVoyants) {
+                
+                testActif = false;
+                alerteDefaut("ETAPE 17", &testActif, &testVoyants);
+                sortieErreur(&automatique, &testActif, &testVoyants);
+            }
+
+        }
 
 
 

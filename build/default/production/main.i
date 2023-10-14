@@ -5815,7 +5815,7 @@ int testCP(void);
 # 55 "main.c" 2
 
 # 1 "./display.h" 1
-# 15 "./display.h"
+# 16 "./display.h"
 void displayManager(char s1[], char s2[], char s3[], char s4[]);
 # 56 "main.c" 2
 
@@ -6171,7 +6171,55 @@ void main(void) {
                 sortieErreur(&automatique, &testActif, &testVoyants);
             }
         }
-# 450 "main.c"
+
+
+
+
+        if (testActif) {
+
+            displayManager("ETAPE 16", "TEST LEDS VERTES", "", "APPUYER SUR OK/NOK");
+            modeBP(1);
+            IN48();
+            activerBP(1);
+            activerReed(0);
+            _delay((unsigned long)((800)*(16000000/4000.0)));
+
+            printf("Attente validation led vertes\r\n");
+            testVoyants = reponseOperateur(automatique);
+            if (!testVoyants) {
+
+                testActif = 0;
+                alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+                sortieErreur(&automatique, &testActif, &testVoyants);
+            }
+
+        }
+
+
+
+        if (testActif) {
+
+            displayManager("ETAPE 17", "TEST LEDS BLEUES", "", "APPUYER SUR OK/NOK");
+            IN48();
+            activerBP(1);
+            activerReed(1);
+            _delay((unsigned long)((800)*(16000000/4000.0)));
+
+            printf("Attente validation leds bleues\r\n");
+            testVoyants = reponseOperateur(automatique);
+            if (!testVoyants) {
+
+                testActif = 0;
+                alerteDefaut("ETAPE 17", &testActif, &testVoyants);
+                sortieErreur(&automatique, &testActif, &testVoyants);
+            }
+
+        }
+
+
+
+
+
         if (testActif) {
 
             displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", "ATTENTE ACQUITTEMENT");

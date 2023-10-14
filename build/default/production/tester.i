@@ -5822,7 +5822,7 @@ int testCP(void);
 # 12 "tester.c" 2
 
 # 1 "./display.h" 1
-# 15 "./display.h"
+# 16 "./display.h"
 void displayManager(char s1[], char s2[], char s3[], char s4[]);
 # 13 "tester.c" 2
 
