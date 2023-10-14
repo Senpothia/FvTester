@@ -14,7 +14,6 @@
 
 
 
-
 # 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -5375,7 +5374,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 29 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\\pic\\include\\xc.h" 2 3
-# 9 "tester.c" 2
+# 8 "tester.c" 2
 
 # 1 "./mcc_generated_files/mcc.h" 1
 # 50 "./mcc_generated_files/mcc.h"
@@ -5756,7 +5755,7 @@ void SYSTEM_Initialize(void);
 void OSCILLATOR_Initialize(void);
 # 99 "./mcc_generated_files/mcc.h"
 void WDT_Initialize(void);
-# 10 "tester.c" 2
+# 9 "tester.c" 2
 
 # 1 "./I2C_LCD.h" 1
 # 99 "./I2C_LCD.h"
@@ -5784,7 +5783,7 @@ void noBacklight();
 void LCD_SR();
 void LCD_SL();
 void LCD_Clear();
-# 11 "tester.c" 2
+# 10 "tester.c" 2
 
 # 1 "./tester.h" 1
 
@@ -5819,12 +5818,14 @@ _Bool testFermeture(_Bool active);
 void activerReed(_Bool active);
 void activerBP(_Bool active);
 int testCP(void);
-# 12 "tester.c" 2
+void debloquerCPs(void);
+void attenteOK(void);
+# 11 "tester.c" 2
 
 # 1 "./display.h" 1
-# 16 "./display.h"
+# 19 "./display.h"
 void displayManager(char s1[], char s2[], char s3[], char s4[]);
-# 13 "tester.c" 2
+# 12 "tester.c" 2
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\string.h" 1 3
@@ -5882,7 +5883,7 @@ size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
 
 
 void *memccpy (void *restrict, const void *restrict, int, size_t);
-# 15 "tester.c" 2
+# 14 "tester.c" 2
 
 
 _Bool testOK(_Bool active) {
@@ -5978,7 +5979,6 @@ void alerteDefaut(char etape[], _Bool *testAct, _Bool *testVoy) {
         ;
     }
 
-
     *testAct = 0;
     *testVoy = 0;
 
@@ -6058,7 +6058,6 @@ void initialConditions(_Bool *testAct, _Bool *testVoy, _Bool *autom) {
     ledNonConforme(0);
     ledProgession(0);
     rasAlimention();
-
 }
 
 void activerBuzzer() {
@@ -6359,4 +6358,23 @@ int testCP() {
     }
 
     return result;
+}
+
+void debloquerCPs(void) {
+
+    modeBP(1);
+    IN48();
+    _delay((unsigned long)((500)*(16000000/4000.0)));
+    activerBP(1);
+    _delay((unsigned long)((500)*(16000000/4000.0)));
+    activerBP(1);
+    IN_OFF();
+
+}
+
+void attenteOK(void) {
+
+    while (PORTDbits.RD2 == 1) {
+        ;
+    }
 }

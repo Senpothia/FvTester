@@ -1,14 +1,13 @@
 /**
- TEST CARTE D925ED4 - BOX GALEO BLTH
+ TEST CARTE D855ED2
  * 
- * Septembre 2023
  * 
- * Michel LOPEZ
+ * Michel 
  * 
  */
 
 /*
- Equipement: automate v1.0
+ Equipement: automate v3.0
  * PIC16LF1939
  * 
  * Relais:
@@ -54,6 +53,7 @@
 #include "I2C_LCD.h"
 #include "tester.h"
 #include "display.h"
+#include <string.h>
 
 /*
                          Main application
@@ -84,7 +84,9 @@ void main(void) {
     bool testActif = false;
     bool testVoyants = false;
     bool automatique = false;
-
+    char messageDefautCP[20];
+    int cps = 0;
+    bool erreurCPs = false;
 
     // Affichage message d'accueil
 
@@ -94,386 +96,437 @@ void main(void) {
 
     while (1) {
 
-        // Attente de démarrage
+        // Test des positions de CP
 
-        displayManager(TITRE, ATTENTE, LIGNE_VIDE, OK_REQUEST);
-        __delay_ms(100);
+        cps = testCP();
 
-        attenteDemarrage(&automatique, &testActif);
-        testActif = true;
-        startAlert();
-        displayManager("ETAPE 1", "TEST MODE BP", LIGNE_VIDE, LIGNE_VIDE);
-        testActif = true;
-        ledConforme(false);
-        ledNonConforme(false);
-        ledProgession(true);
+        if (cps != 0) {
 
-        // entrée dans la séquence de test
+            int tentatives = 0;
+            while (tentatives < 2 && cps != 0) {
 
-        // ETAPE 1
+                switch (cps) {
 
-        __delay_ms(100);
+                    case 1:
 
-        modeBP(true);
-        IN_OFF();
-        activerBP(false);
-        activerReed(false);
-        __delay_ms(800);
+                        strncpy(messageDefautCP, DEFAUTCP1, 20);
+                        break;
 
-        if (testFermeture(false)) {
+                    case 2:
+                        strncpy(messageDefautCP, DEFAUTCP2, 20);
+                        break;
 
-        } else {
+                    case 3:
+                        strncpy(messageDefautCP, DEFAUTCP3, 20);
+                        break;
 
-            testActif = false;
+                }
 
-            alerteDefaut("ETAPE 1", &testActif, &testVoyants);
-            sortieErreur(&automatique, &testActif, &testVoyants);
+                displayManager(TITRE, messageDefautCP, BOARD_REF, ACQ);
+                attenteOK();
+                debloquerCPs();
+                cps = testCP();
+                tentatives++;
 
-        }
-
-        // ETAPE 2
-
-        if (testActif) {
-
-            displayManager("ETAPE 2", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
-            IN12();
-            activerBP(false);
-            activerReed(true);
-
-            __delay_ms(800);
-            if (testFermeture(true)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 2", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
             }
-        }
 
-        // ETAPE 3
+            if (cps != 0) {
 
-        if (testActif) {
-
-            displayManager("ETAPE 3", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
-            IN12();
-            activerBP(true);
-            activerReed(false);
-
-            __delay_ms(800);
-            if (testFermeture(false)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 3", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
+                erreurCPs = true;
             }
+
         }
 
-        // ETAPE 4
+        while (erreurCPs) {
 
-        if (testActif) {
-
-            displayManager("ETAPE 4", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
-            IN_OFF();
-            activerBP(false);
-            activerReed(false);
-
-            __delay_ms(800);
-            if (testFermeture(false)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 3", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
+            displayManager(TITRE, messageDefautCP, "MAINTENANCE NECESSAIRE", "REDEMARREZ BANC");
         }
 
+        if (!erreurCPs) {
 
-        // ETAPE 5
+            // Attente de démarrage
 
-        if (testActif) {
+            displayManager(TITRE, ATTENTE, LIGNE_VIDE, OK_REQUEST);
+            __delay_ms(100);
 
-            displayManager("ETAPE 5", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
-            IN48();
-            activerBP(false);
-            activerReed(true);
+            attenteDemarrage(&automatique, &testActif);
+            testActif = true;
+            startAlert();
+            displayManager("ETAPE 1", "TEST MODE BP", LIGNE_VIDE, LIGNE_VIDE);
+            testActif = true;
+            ledConforme(false);
+            ledNonConforme(false);
+            ledProgession(true);
 
-            __delay_ms(800);
-            if (testFermeture(true)) {
+            // entrée dans la séquence de test
 
-            } else {
+            // ETAPE 1
 
-                testActif = false;
-                alerteDefaut("ETAPE 5", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
+            __delay_ms(100);
 
-        // ETAPE 6
-
-        if (testActif) {
-
-            displayManager("ETAPE 6", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
-            IN48();
-            activerBP(true);
-            activerReed(false);
-
-            __delay_ms(800);
-            if (testFermeture(false)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 6", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-        // ETAPE 7
-
-        if (testActif) {
-
-            displayManager("ETAPE 7", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
-            IN_OFF();
-            activerBP(false);
-            activerReed(false);
-
-            __delay_ms(800);
-            if (testFermeture(false)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 7", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-        // ETAPE 8
-
-        if (testActif) {
-
-            displayManager("ETAPE 8", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
-            modeBP(false);
-            IN_OFF();
-            TC_OFF();
-            activerReed(false);
-
-            __delay_ms(800);
-            if (testFermeture(false)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 8", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-        // ETAPE 9
-
-        if (testActif) {
-
-            displayManager("ETAPE 9", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
-            IN12();
-            TC12();
-            activerReed(true);
-
-            __delay_ms(800);
-            if (testFermeture(true)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 9", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-        // ETAPE 10
-
-        if (testActif) {
-
-            displayManager("ETAPE 10", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
-            IN12();
-            TC_OFF();
-            activerReed(false);
-
-            __delay_ms(800);
-            if (testFermeture(false)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 10", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-        // ETAPE 11
-
-        if (testActif) {
-
-            displayManager("ETAPE 11", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
-            IN_OFF();
-            TC_OFF();
-            activerReed(false);
-
-            __delay_ms(800);
-            if (testFermeture(false)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 11", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-        // ETAPE 12
-
-        if (testActif) {
-
-            displayManager("ETAPE 12", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
-            IN48();
-            TC_OFF();
-            activerReed(false);
-
-            __delay_ms(800);
-            if (testFermeture(false)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 12", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-        // ETAPE 13
-
-        if (testActif) {
-
-            displayManager("ETAPE 13", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
-            IN48();
-            TC48();
-            activerReed(true);
-
-            __delay_ms(800);
-            if (testFermeture(true)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 13", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-        // ETAPE 14
-
-        if (testActif) {
-
-            displayManager("ETAPE 14", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
-            IN48();
-            TC_OFF();
-            activerReed(false);
-
-            __delay_ms(800);
-            if (testFermeture(false)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 14", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-        // ETAPE 15
-
-        if (testActif) {
-
-            displayManager("ETAPE 15", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
-            IN_OFF();
-            TC48();
-            activerReed(false);
-
-            __delay_ms(800);
-            if (testFermeture(false)) {
-
-            } else {
-
-                testActif = false;
-                alerteDefaut("ETAPE 15", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-        // ETAPE 16
-
-        if (testActif) {
-
-            displayManager("ETAPE 16", "TEST LEDS VERTES", LIGNE_VIDE, ANSWER);
             modeBP(true);
-            IN48();
-            activerBP(true);
+            IN_OFF();
+            activerBP(false);
             activerReed(false);
             __delay_ms(800);
-            
-            printf("Attente validation led vertes\r\n");
-            testVoyants = reponseOperateur(automatique);
-            if (!testVoyants) {
-                
+
+            if (testFermeture(false)) {
+
+            } else {
+
                 testActif = false;
-                alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+
+                alerteDefaut("ETAPE 1", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants);
+
             }
 
-        }
+            // ETAPE 2
 
-        // ETAPE 17
+            if (testActif) {
 
-        if (testActif) {
+                displayManager("ETAPE 2", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
+                IN12();
+                activerBP(false);
+                activerReed(true);
 
-            displayManager("ETAPE 17", "TEST LEDS BLEUES", LIGNE_VIDE, ANSWER);
-            IN48();
-            activerBP(true);
-            activerReed(true);
-            __delay_ms(800);
-            
-            printf("Attente validation leds bleues\r\n");
-            testVoyants = reponseOperateur(automatique);
-            if (!testVoyants) {
-                
-                testActif = false;
-                alerteDefaut("ETAPE 17", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
+                __delay_ms(800);
+                if (testFermeture(true)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 2", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
             }
 
+            // ETAPE 3
+
+            if (testActif) {
+
+                displayManager("ETAPE 3", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
+                IN12();
+                activerBP(true);
+                activerReed(false);
+
+                __delay_ms(800);
+                if (testFermeture(false)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+            // ETAPE 4
+
+            if (testActif) {
+
+                displayManager("ETAPE 4", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
+                IN_OFF();
+                activerBP(false);
+                activerReed(false);
+
+                __delay_ms(800);
+                if (testFermeture(false)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+            // ETAPE 5
+
+            if (testActif) {
+
+                displayManager("ETAPE 5", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
+                IN48();
+                activerBP(false);
+                activerReed(true);
+
+                __delay_ms(800);
+                if (testFermeture(true)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 5", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+            // ETAPE 6
+
+            if (testActif) {
+
+                displayManager("ETAPE 6", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
+                IN48();
+                activerBP(true);
+                activerReed(false);
+
+                __delay_ms(800);
+                if (testFermeture(false)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 6", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+            // ETAPE 7
+
+            if (testActif) {
+
+                displayManager("ETAPE 7", "MODE BP", LIGNE_VIDE, LIGNE_VIDE);
+                IN_OFF();
+                activerBP(false);
+                activerReed(false);
+
+                __delay_ms(800);
+                if (testFermeture(false)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 7", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+            // ETAPE 8
+
+            if (testActif) {
+
+                displayManager("ETAPE 8", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
+                modeBP(false);
+                IN_OFF();
+                TC_OFF();
+                activerReed(false);
+
+                __delay_ms(800);
+                if (testFermeture(false)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 8", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+            // ETAPE 9
+
+            if (testActif) {
+
+                displayManager("ETAPE 9", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
+                IN12();
+                TC12();
+                activerReed(true);
+
+                __delay_ms(800);
+                if (testFermeture(true)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 9", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+            // ETAPE 10
+
+            if (testActif) {
+
+                displayManager("ETAPE 10", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
+                IN12();
+                TC_OFF();
+                activerReed(false);
+
+                __delay_ms(800);
+                if (testFermeture(false)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 10", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+            // ETAPE 11
+
+            if (testActif) {
+
+                displayManager("ETAPE 11", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
+                IN_OFF();
+                TC_OFF();
+                activerReed(false);
+
+                __delay_ms(800);
+                if (testFermeture(false)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 11", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+            // ETAPE 12
+
+            if (testActif) {
+
+                displayManager("ETAPE 12", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
+                IN48();
+                TC_OFF();
+                activerReed(false);
+
+                __delay_ms(800);
+                if (testFermeture(false)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 12", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+            // ETAPE 13
+
+            if (testActif) {
+
+                displayManager("ETAPE 13", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
+                IN48();
+                TC48();
+                activerReed(true);
+
+                __delay_ms(800);
+                if (testFermeture(true)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 13", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+            // ETAPE 14
+
+            if (testActif) {
+
+                displayManager("ETAPE 14", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
+                IN48();
+                TC_OFF();
+                activerReed(false);
+
+                __delay_ms(800);
+                if (testFermeture(false)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 14", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+            // ETAPE 15
+
+            if (testActif) {
+
+                displayManager("ETAPE 15", "MODE TC", LIGNE_VIDE, LIGNE_VIDE);
+                IN_OFF();
+                TC48();
+                activerReed(false);
+
+                __delay_ms(800);
+                if (testFermeture(false)) {
+
+                } else {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 15", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+            // ETAPE 16
+
+            if (testActif) {
+
+                displayManager("ETAPE 16", "TEST LEDS VERTES", LIGNE_VIDE, ANSWER);
+                modeBP(true);
+                IN48();
+                activerBP(true);
+                activerReed(false);
+                __delay_ms(800);
+
+                printf("Attente validation led vertes\r\n");
+                testVoyants = reponseOperateur(automatique);
+                if (!testVoyants) {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+
+            }
+
+            // ETAPE 17
+
+            if (testActif) {
+
+                displayManager("ETAPE 17", "TEST LEDS BLEUES", LIGNE_VIDE, ANSWER);
+                IN48();
+                activerBP(true);
+                activerReed(true);
+                __delay_ms(800);
+
+                printf("Attente validation leds bleues\r\n");
+                testVoyants = reponseOperateur(automatique);
+                if (!testVoyants) {
+
+                    testActif = false;
+                    alerteDefaut("ETAPE 17", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+
+            }
+
+            // ETAPE: SORTIE
+
+            if (testActif) {
+
+                displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", ACQ);
+                ledConforme(true);
+                rasAlimention();
+                okAlert();
+                attenteAquittement(&automatique, &testActif);
+                initialConditions(&testActif, &testVoyants, &automatique);
+                cps = 0;
+                __delay_ms(2000);
+
+            }
+
+
+
         }
 
-
-
-        // ETAPE: SORTIE
-
-        if (testActif) {
-
-            displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", ACQ);
-            ledConforme(true);
-            rasAlimention();
-            okAlert();
-            attenteAquittement(&automatique, &testActif);
-            initialConditions(&testActif, &testVoyants, &automatique);
-            __delay_ms(2000);
-
-        }
 
     } // fin boucle infinie
 

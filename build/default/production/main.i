@@ -7,7 +7,7 @@
 # 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "main.c" 2
-# 53 "main.c"
+# 52 "main.c"
 # 1 "./mcc_generated_files/mcc.h" 1
 # 49 "./mcc_generated_files/mcc.h"
 # 1 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC12-16F1xxx_DFP/1.3.90/xc8\\pic\\include\\xc.h" 1 3
@@ -5749,7 +5749,7 @@ void SYSTEM_Initialize(void);
 void OSCILLATOR_Initialize(void);
 # 99 "./mcc_generated_files/mcc.h"
 void WDT_Initialize(void);
-# 53 "main.c" 2
+# 52 "main.c" 2
 
 # 1 "./I2C_LCD.h" 1
 # 99 "./I2C_LCD.h"
@@ -5777,7 +5777,7 @@ void noBacklight();
 void LCD_SR();
 void LCD_SL();
 void LCD_Clear();
-# 54 "main.c" 2
+# 53 "main.c" 2
 
 # 1 "./tester.h" 1
 
@@ -5812,11 +5812,70 @@ _Bool testFermeture(_Bool active);
 void activerReed(_Bool active);
 void activerBP(_Bool active);
 int testCP(void);
-# 55 "main.c" 2
+void debloquerCPs(void);
+void attenteOK(void);
+# 54 "main.c" 2
 
 # 1 "./display.h" 1
-# 16 "./display.h"
+# 19 "./display.h"
 void displayManager(char s1[], char s2[], char s3[], char s4[]);
+# 55 "main.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\string.h" 1 3
+# 25 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\string.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 411 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef struct __locale_struct * locale_t;
+# 25 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\string.h" 2 3
+
+
+void *memcpy (void *restrict, const void *restrict, size_t);
+void *memmove (void *, const void *, size_t);
+void *memset (void *, int, size_t);
+int memcmp (const void *, const void *, size_t);
+void *memchr (const void *, int, size_t);
+
+char *strcpy (char *restrict, const char *restrict);
+char *strncpy (char *restrict, const char *restrict, size_t);
+
+char *strcat (char *restrict, const char *restrict);
+char *strncat (char *restrict, const char *restrict, size_t);
+
+int strcmp (const char *, const char *);
+int strncmp (const char *, const char *, size_t);
+
+int strcoll (const char *, const char *);
+size_t strxfrm (char *restrict, const char *restrict, size_t);
+
+char *strchr (const char *, int);
+char *strrchr (const char *, int);
+
+size_t strcspn (const char *, const char *);
+size_t strspn (const char *, const char *);
+char *strpbrk (const char *, const char *);
+char *strstr (const char *, const char *);
+char *strtok (char *restrict, const char *restrict);
+
+size_t strlen (const char *);
+
+char *strerror (int);
+# 65 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\c99\\string.h" 3
+char *strtok_r (char *restrict, const char *restrict, char **restrict);
+int strerror_r (int, char *, size_t);
+char *stpcpy(char *restrict, const char *restrict);
+char *stpncpy(char *restrict, const char *restrict, size_t);
+size_t strnlen (const char *, size_t);
+char *strdup (const char *);
+char *strndup (const char *, size_t);
+char *strsignal(int);
+char *strerror_l (int, locale_t);
+int strcoll_l (const char *, const char *, locale_t);
+size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
+
+
+
+
+void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 56 "main.c" 2
 
 
@@ -5841,7 +5900,9 @@ void main(void) {
     _Bool testActif = 0;
     _Bool testVoyants = 0;
     _Bool automatique = 0;
-
+    char messageDefautCP[20];
+    int cps = 0;
+    _Bool erreurCPs = 0;
 
 
 
@@ -5853,384 +5914,435 @@ void main(void) {
 
 
 
-        displayManager("TEST CARTE D855ED2", "ATTENTE DEMARRAGE", "", "APPUYER SUR OK");
-        _delay((unsigned long)((100)*(16000000/4000.0)));
+        cps = testCP();
 
-        attenteDemarrage(&automatique, &testActif);
-        testActif = 1;
-        startAlert();
-        displayManager("ETAPE 1", "TEST MODE BP", "", "");
-        testActif = 1;
-        ledConforme(0);
-        ledNonConforme(0);
-        ledProgession(1);
+        if (cps != 0) {
 
+            int tentatives = 0;
+            while (tentatives < 2 && cps != 0) {
 
+                switch (cps) {
 
+                    case 1:
 
+                        strncpy(messageDefautCP, "DEFAUT CP1       ", 20);
+                        break;
 
-        _delay((unsigned long)((100)*(16000000/4000.0)));
+                    case 2:
+                        strncpy(messageDefautCP, "DEFAUT CP2       ", 20);
+                        break;
 
-        modeBP(1);
-        IN_OFF();
-        activerBP(0);
-        activerReed(0);
-        _delay((unsigned long)((800)*(16000000/4000.0)));
+                    case 3:
+                        strncpy(messageDefautCP, "DEFAUT CP1 ET CP2", 20);
+                        break;
 
-        if (testFermeture(0)) {
+                }
 
-        } else {
+                displayManager("TEST CARTE D855ED2", messageDefautCP, "PLACER CARTE REF", "ATTENTE ACQUITTEMENT");
+                attenteOK();
+                debloquerCPs();
+                cps = testCP();
+                tentatives++;
 
-            testActif = 0;
-
-            alerteDefaut("ETAPE 1", &testActif, &testVoyants);
-            sortieErreur(&automatique, &testActif, &testVoyants);
-
-        }
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 2", "MODE BP", "", "");
-            IN12();
-            activerBP(0);
-            activerReed(1);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(1)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 2", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
             }
-        }
 
+            if (cps != 0) {
 
-
-        if (testActif) {
-
-            displayManager("ETAPE 3", "MODE BP", "", "");
-            IN12();
-            activerBP(1);
-            activerReed(0);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(0)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 3", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
+                erreurCPs = 1;
             }
+
         }
 
+        while (erreurCPs) {
 
-
-        if (testActif) {
-
-            displayManager("ETAPE 4", "MODE BP", "", "");
-            IN_OFF();
-            activerBP(0);
-            activerReed(0);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(0)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 3", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
+            displayManager("TEST CARTE D855ED2", messageDefautCP, "MAINTENANCE NECESSAIRE", "REDEMARREZ BANC");
         }
 
+        if (!erreurCPs) {
 
 
 
-        if (testActif) {
+            displayManager("TEST CARTE D855ED2", "ATTENTE DEMARRAGE", "", "APPUYER SUR OK");
+            _delay((unsigned long)((100)*(16000000/4000.0)));
 
-            displayManager("ETAPE 5", "MODE BP", "", "");
-            IN48();
-            activerBP(0);
-            activerReed(1);
+            attenteDemarrage(&automatique, &testActif);
+            testActif = 1;
+            startAlert();
+            displayManager("ETAPE 1", "TEST MODE BP", "", "");
+            testActif = 1;
+            ledConforme(0);
+            ledNonConforme(0);
+            ledProgession(1);
 
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(1)) {
 
-            } else {
 
-                testActif = 0;
-                alerteDefaut("ETAPE 5", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
 
 
+            _delay((unsigned long)((100)*(16000000/4000.0)));
 
-        if (testActif) {
-
-            displayManager("ETAPE 6", "MODE BP", "", "");
-            IN48();
-            activerBP(1);
-            activerReed(0);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(0)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 6", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 7", "MODE BP", "", "");
-            IN_OFF();
-            activerBP(0);
-            activerReed(0);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(0)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 7", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 8", "MODE TC", "", "");
-            modeBP(0);
-            IN_OFF();
-            TC_OFF();
-            activerReed(0);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(0)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 8", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 9", "MODE TC", "", "");
-            IN12();
-            TC12();
-            activerReed(1);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(1)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 9", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 10", "MODE TC", "", "");
-            IN12();
-            TC_OFF();
-            activerReed(0);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(0)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 10", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 11", "MODE TC", "", "");
-            IN_OFF();
-            TC_OFF();
-            activerReed(0);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(0)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 11", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 12", "MODE TC", "", "");
-            IN48();
-            TC_OFF();
-            activerReed(0);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(0)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 12", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 13", "MODE TC", "", "");
-            IN48();
-            TC48();
-            activerReed(1);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(1)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 13", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 14", "MODE TC", "", "");
-            IN48();
-            TC_OFF();
-            activerReed(0);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(0)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 14", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 15", "MODE TC", "", "");
-            IN_OFF();
-            TC48();
-            activerReed(0);
-
-            _delay((unsigned long)((800)*(16000000/4000.0)));
-            if (testFermeture(0)) {
-
-            } else {
-
-                testActif = 0;
-                alerteDefaut("ETAPE 15", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
-            }
-        }
-
-
-
-
-        if (testActif) {
-
-            displayManager("ETAPE 16", "TEST LEDS VERTES", "", "APPUYER SUR OK/NOK");
             modeBP(1);
-            IN48();
-            activerBP(1);
+            IN_OFF();
+            activerBP(0);
             activerReed(0);
             _delay((unsigned long)((800)*(16000000/4000.0)));
 
-            printf("Attente validation led vertes\r\n");
-            testVoyants = reponseOperateur(automatique);
-            if (!testVoyants) {
+            if (testFermeture(0)) {
+
+            } else {
 
                 testActif = 0;
-                alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+
+                alerteDefaut("ETAPE 1", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants);
+
             }
 
-        }
 
 
+            if (testActif) {
 
-        if (testActif) {
+                displayManager("ETAPE 2", "MODE BP", "", "");
+                IN12();
+                activerBP(0);
+                activerReed(1);
 
-            displayManager("ETAPE 17", "TEST LEDS BLEUES", "", "APPUYER SUR OK/NOK");
-            IN48();
-            activerBP(1);
-            activerReed(1);
-            _delay((unsigned long)((800)*(16000000/4000.0)));
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(1)) {
 
-            printf("Attente validation leds bleues\r\n");
-            testVoyants = reponseOperateur(automatique);
-            if (!testVoyants) {
+                } else {
 
-                testActif = 0;
-                alerteDefaut("ETAPE 17", &testActif, &testVoyants);
-                sortieErreur(&automatique, &testActif, &testVoyants);
+                    testActif = 0;
+                    alerteDefaut("ETAPE 2", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
             }
 
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 3", "MODE BP", "", "");
+                IN12();
+                activerBP(1);
+                activerReed(0);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(0)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 4", "MODE BP", "", "");
+                IN_OFF();
+                activerBP(0);
+                activerReed(0);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(0)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 5", "MODE BP", "", "");
+                IN48();
+                activerBP(0);
+                activerReed(1);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(1)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 5", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 6", "MODE BP", "", "");
+                IN48();
+                activerBP(1);
+                activerReed(0);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(0)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 6", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 7", "MODE BP", "", "");
+                IN_OFF();
+                activerBP(0);
+                activerReed(0);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(0)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 7", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 8", "MODE TC", "", "");
+                modeBP(0);
+                IN_OFF();
+                TC_OFF();
+                activerReed(0);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(0)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 8", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 9", "MODE TC", "", "");
+                IN12();
+                TC12();
+                activerReed(1);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(1)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 9", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 10", "MODE TC", "", "");
+                IN12();
+                TC_OFF();
+                activerReed(0);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(0)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 10", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 11", "MODE TC", "", "");
+                IN_OFF();
+                TC_OFF();
+                activerReed(0);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(0)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 11", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 12", "MODE TC", "", "");
+                IN48();
+                TC_OFF();
+                activerReed(0);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(0)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 12", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 13", "MODE TC", "", "");
+                IN48();
+                TC48();
+                activerReed(1);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(1)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 13", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 14", "MODE TC", "", "");
+                IN48();
+                TC_OFF();
+                activerReed(0);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(0)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 14", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 15", "MODE TC", "", "");
+                IN_OFF();
+                TC48();
+                activerReed(0);
+
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+                if (testFermeture(0)) {
+
+                } else {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 15", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 16", "TEST LEDS VERTES", "", "APPUYER SUR OK/NOK");
+                modeBP(1);
+                IN48();
+                activerBP(1);
+                activerReed(0);
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+
+                printf("Attente validation led vertes\r\n");
+                testVoyants = reponseOperateur(automatique);
+                if (!testVoyants) {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("ETAPE 17", "TEST LEDS BLEUES", "", "APPUYER SUR OK/NOK");
+                IN48();
+                activerBP(1);
+                activerReed(1);
+                _delay((unsigned long)((800)*(16000000/4000.0)));
+
+                printf("Attente validation leds bleues\r\n");
+                testVoyants = reponseOperateur(automatique);
+                if (!testVoyants) {
+
+                    testActif = 0;
+                    alerteDefaut("ETAPE 17", &testActif, &testVoyants);
+                    sortieErreur(&automatique, &testActif, &testVoyants);
+                }
+
+            }
+
+
+
+            if (testActif) {
+
+                displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", "ATTENTE ACQUITTEMENT");
+                ledConforme(1);
+                rasAlimention();
+                okAlert();
+                attenteAquittement(&automatique, &testActif);
+                initialConditions(&testActif, &testVoyants, &automatique);
+                cps = 0;
+                _delay((unsigned long)((2000)*(16000000/4000.0)));
+
+            }
+
+
+
         }
 
-
-
-
-
-        if (testActif) {
-
-            displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", "ATTENTE ACQUITTEMENT");
-            ledConforme(1);
-            rasAlimention();
-            okAlert();
-            attenteAquittement(&automatique, &testActif);
-            initialConditions(&testActif, &testVoyants, &automatique);
-            _delay((unsigned long)((2000)*(16000000/4000.0)));
-
-        }
 
     }
 

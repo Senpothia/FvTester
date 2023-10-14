@@ -30,5 +30,7 @@ bool testFermeture(bool active);
 void activerReed(bool active);
 void activerBP(bool active);
 int testCP(void);
+void debloquerCPs(void);
+void attenteOK(void);
 
 

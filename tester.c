@@ -2,7 +2,6 @@
  * File:   tester.c
  * Author: Michel
  *
- * Created on 31 août 2023, 15:28
  */
 
 
@@ -107,7 +106,6 @@ void alerteDefaut(char etape[], bool *testAct, bool *testVoy) {
         ;
     }
 
-    // ledNonConforme(false);
     *testAct = false;
     *testVoy = false;
 
@@ -187,7 +185,6 @@ void initialConditions(bool *testAct, bool *testVoy, bool *autom) {
     ledNonConforme(false);
     ledProgession(false);
     rasAlimention();
-
 }
 
 void activerBuzzer() {
@@ -488,5 +485,24 @@ int testCP() {
     }
 
     return result;
+}
+
+void debloquerCPs(void) {
+
+    modeBP(true);
+    IN48();
+    __delay_ms(500);
+    activerBP(true);
+    __delay_ms(500);
+    activerBP(true);
+    IN_OFF();
+
+}
+
+void attenteOK(void) {
+
+    while (IN3_GetValue() == 1) {
+        ;
+    }
 }
 
