@@ -62,9 +62,9 @@ void ledNonConforme(bool active) {
 
     if (active) {
 
-        C3_SetHigh();
+        C1_SetHigh();
     } else {
-        C3_SetLow();
+        C1_SetLow();
     }
 }
 
@@ -504,5 +504,12 @@ void attenteOK(void) {
     while (IN3_GetValue() == 1) {
         ;
     }
+}
+
+void ledsAlerte(void){
+    
+    ledConforme(true);
+    ledNonConforme(true);
+    ledProgession(true);
 }
 

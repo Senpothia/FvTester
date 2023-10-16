@@ -32,5 +32,6 @@ void activerBP(bool active);
 int testCP(void);
 void debloquerCPs(void);
 void attenteOK(void);
+void ledsAlerte(void);
 
 

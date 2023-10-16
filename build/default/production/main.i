@@ -5376,9 +5376,9 @@ extern __bank0 __bit __timeout;
 # 50 "./mcc_generated_files/mcc.h" 2
 
 # 1 "./mcc_generated_files/pin_manager.h" 1
-# 415 "./mcc_generated_files/pin_manager.h"
+# 432 "./mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
-# 427 "./mcc_generated_files/pin_manager.h"
+# 444 "./mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_IOC(void);
 # 51 "./mcc_generated_files/mcc.h" 2
 
@@ -5814,6 +5814,7 @@ void activerBP(_Bool active);
 int testCP(void);
 void debloquerCPs(void);
 void attenteOK(void);
+void ledsAlerte(void);
 # 54 "main.c" 2
 
 # 1 "./display.h" 1
@@ -5906,7 +5907,7 @@ void main(void) {
 
 
 
-    displayManager("TEST CARTE D855ED2", "POSITIONNER CARTE", "APPUYER SUR OK", "");
+    displayManager("TEST CARTE D855ED2!", "POSITIONNER CARTE", "APPUYER SUR OK", "");
     _delay((unsigned long)((1000)*(16000000/4000.0)));
 
 
@@ -5918,6 +5919,8 @@ void main(void) {
 
         if (cps != 0) {
 
+            errorAlert();
+            ledsAlerte();
             int tentatives = 0;
             while (tentatives < 2 && cps != 0) {
 
@@ -5938,7 +5941,7 @@ void main(void) {
 
                 }
 
-                displayManager("TEST CARTE D855ED2", messageDefautCP, "PLACER CARTE REF", "ATTENTE ACQUITTEMENT");
+                displayManager("TEST CARTE D855ED2!", messageDefautCP, "PLACER CARTE REF", "ATTENTE ACQUITTEMENT");
                 attenteOK();
                 debloquerCPs();
                 cps = testCP();
@@ -5949,20 +5952,21 @@ void main(void) {
             if (cps != 0) {
 
                 erreurCPs = 1;
+                errorAlert();
             }
 
         }
 
         while (erreurCPs) {
 
-            displayManager("TEST CARTE D855ED2", messageDefautCP, "MAINTENANCE NECESSAIRE", "REDEMARREZ BANC");
+            displayManager("TEST CARTE D855ED2!", messageDefautCP, "MAINTENANCE NECESSAIRE", "REDEMARREZ BANC");
         }
 
         if (!erreurCPs) {
 
 
 
-            displayManager("TEST CARTE D855ED2", "ATTENTE DEMARRAGE", "", "APPUYER SUR OK");
+            displayManager("TEST CARTE D855ED2!", "ATTENTE DEMARRAGE", "", "APPUYER SUR OK");
             _delay((unsigned long)((100)*(16000000/4000.0)));
 
             attenteDemarrage(&automatique, &testActif);
@@ -6338,8 +6342,6 @@ void main(void) {
                 _delay((unsigned long)((2000)*(16000000/4000.0)));
 
             }
-
-
 
         }
 

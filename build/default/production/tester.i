@@ -5382,9 +5382,9 @@ extern __bank0 __bit __timeout;
 # 50 "./mcc_generated_files/mcc.h" 2
 
 # 1 "./mcc_generated_files/pin_manager.h" 1
-# 415 "./mcc_generated_files/pin_manager.h"
+# 432 "./mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
-# 427 "./mcc_generated_files/pin_manager.h"
+# 444 "./mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_IOC(void);
 # 51 "./mcc_generated_files/mcc.h" 2
 
@@ -5820,6 +5820,7 @@ void activerBP(_Bool active);
 int testCP(void);
 void debloquerCPs(void);
 void attenteOK(void);
+void ledsAlerte(void);
 # 11 "tester.c" 2
 
 # 1 "./display.h" 1
@@ -5935,9 +5936,9 @@ void ledNonConforme(_Bool active) {
 
     if (active) {
 
-        do { LATEbits.LATE1 = 1; } while(0);
+        do { LATBbits.LATB5 = 1; } while(0);
     } else {
-        do { LATEbits.LATE1 = 0; } while(0);
+        do { LATBbits.LATB5 = 0; } while(0);
     }
 }
 
@@ -6377,4 +6378,11 @@ void attenteOK(void) {
     while (PORTDbits.RD2 == 1) {
         ;
     }
+}
+
+void ledsAlerte(void){
+
+    ledConforme(1);
+    ledNonConforme(1);
+    ledProgession(1);
 }

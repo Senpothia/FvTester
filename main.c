@@ -101,7 +101,9 @@ void main(void) {
         cps = testCP();
 
         if (cps != 0) {
-
+            
+            errorAlert();
+            ledsAlerte();
             int tentatives = 0;
             while (tentatives < 2 && cps != 0) {
 
@@ -133,6 +135,7 @@ void main(void) {
             if (cps != 0) {
 
                 erreurCPs = true;
+                errorAlert();
             }
 
         }
@@ -522,8 +525,6 @@ void main(void) {
                 __delay_ms(2000);
 
             }
-
-
 
         }
 
