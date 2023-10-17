@@ -439,20 +439,26 @@ bool testFermeture(bool active) {
         if (IN1_GetValue() == 1 && IN2_GetValue() == 1) {
 
             result = true;
+
         } else {
 
             ledsAlerte();
             erreur = true;
             while (erreur && nbrErreurs < 3) {
 
-                nbrErreurs++;
                 __delay_ms(200);
                 if (IN1_GetValue() == 1 && IN2_GetValue() == 1) {
+
                     result = true;
                     erreur = false;
-
+                    ledConforme(false);
+                    ledProgession(true);
+                    ledNonConforme(false);
                 }
+                nbrErreurs++;
             }
+
+            __delay_ms(1000);
         }
     }
 
@@ -467,14 +473,18 @@ bool testFermeture(bool active) {
             erreur = true;
             while (erreur && nbrErreurs < 3) {
 
-                nbrErreurs++;
                 __delay_ms(200);
                 if (IN1_GetValue() == 0 && IN2_GetValue() == 0) {
+
                     result = true;
                     erreur = false;
+                    ledConforme(false);
+                    ledProgession(true);
+                    ledNonConforme(false);
                 }
+                nbrErreurs++;
             }
-
+            __delay_ms(1000);
         }
     }
 
