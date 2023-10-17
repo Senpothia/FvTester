@@ -5795,7 +5795,7 @@ void ledNonConforme(_Bool active);
 void ledConforme(_Bool active);
 void ledProgession(_Bool active);
 void alerteDefaut(char etape[], _Bool *, _Bool *);
-_Bool reponseOperateur(_Bool automatique);
+_Bool reponseOperateur(_Bool automatique, _Bool *);
 void activerBuzzer();
 void startAlert(void);
 void errorAlert(void);
@@ -5985,7 +5985,7 @@ void alerteDefaut(char etape[], _Bool *testAct, _Bool *testVoy) {
 
 }
 
-_Bool reponseOperateur(_Bool automatique) {
+_Bool reponseOperateur(_Bool automatique, _Bool *time) {
 
     _Bool reponse = 0;
     _Bool repOperateur = 0;
@@ -6028,8 +6028,11 @@ _Bool reponseOperateur(_Bool automatique) {
 
     if (!automatique) {
 
-        while (!repOperateur) {
+        long tempo = 0;
 
+        while (!repOperateur && tempo < 10000000) {
+
+            tempo++;
             if (testNOK(1)) {
                 reponse = 0;
                 repOperateur = 1;
@@ -6039,6 +6042,13 @@ _Bool reponseOperateur(_Bool automatique) {
                 repOperateur = 1;
             }
         }
+
+        if (tempo == 10000000) {
+
+            *time = 1;
+
+        }
+
 
     }
 
@@ -6059,6 +6069,7 @@ void initialConditions(_Bool *testAct, _Bool *testVoy, _Bool *autom) {
     ledNonConforme(0);
     ledProgession(0);
     rasAlimention();
+
 }
 
 void activerBuzzer() {
@@ -6302,6 +6313,7 @@ _Bool testFermeture(_Bool active) {
             result = 1;
         } else {
 
+            ledsAlerte();
             erreur = 1;
             while (erreur && nbrErreurs < 3) {
 
@@ -6320,10 +6332,10 @@ _Bool testFermeture(_Bool active) {
 
         if (PORTDbits.RD0 == 0 && PORTDbits.RD1 == 0) {
 
-
             result = 1;
         } else {
 
+            ledsAlerte();
             erreur = 1;
             while (erreur && nbrErreurs < 3) {
 

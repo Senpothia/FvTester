@@ -7,7 +7,7 @@ void ledNonConforme(bool active);
 void ledConforme(bool active);
 void ledProgession(bool active);
 void alerteDefaut(char etape[], bool *, bool *);
-bool reponseOperateur(bool automatique);
+bool reponseOperateur(bool automatique, bool *);
 void activerBuzzer();
 void startAlert(void);
 void errorAlert(void);

@@ -111,7 +111,7 @@ void alerteDefaut(char etape[], bool *testAct, bool *testVoy) {
 
 }
 
-bool reponseOperateur(bool automatique) {
+bool reponseOperateur(bool automatique, bool *time) {
 
     bool reponse = false;
     bool repOperateur = false;
@@ -154,8 +154,11 @@ bool reponseOperateur(bool automatique) {
 
     if (!automatique) {
 
-        while (!repOperateur) {
+        long tempo = 0;
 
+        while (!repOperateur && tempo < 10000000) {
+
+            tempo++;
             if (testNOK(true)) {
                 reponse = false;
                 repOperateur = true;
@@ -165,6 +168,13 @@ bool reponseOperateur(bool automatique) {
                 repOperateur = true;
             }
         }
+
+        if (tempo == 10000000) {
+
+            *time = true;
+
+        }
+
 
     }
 
@@ -185,6 +195,7 @@ void initialConditions(bool *testAct, bool *testVoy, bool *autom) {
     ledNonConforme(false);
     ledProgession(false);
     rasAlimention();
+
 }
 
 void activerBuzzer() {
@@ -427,7 +438,8 @@ bool testFermeture(bool active) {
 
             result = true;
         } else {
-
+            
+            ledsAlerte();
             erreur = true;
             while (erreur && nbrErreurs < 3) {
 
@@ -448,7 +460,8 @@ bool testFermeture(bool active) {
 
             result = true;
         } else {
-
+            
+            ledsAlerte();
             erreur = true;
             while (erreur && nbrErreurs < 3) {
 

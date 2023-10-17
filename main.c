@@ -87,6 +87,7 @@ void main(void) {
     char messageDefautCP[20];
     int cps = 0;
     bool erreurCPs = false;
+    bool timeout = false;
 
     // Affichage message d'accueil
 
@@ -480,8 +481,8 @@ void main(void) {
                 __delay_ms(800);
 
                 printf("Attente validation led vertes\r\n");
-                testVoyants = reponseOperateur(automatique);
-                if (!testVoyants) {
+                testVoyants = reponseOperateur(automatique, &timeout);
+                if (!testVoyants && !timeout) {
 
                     testActif = false;
                     alerteDefaut("ETAPE 3", &testActif, &testVoyants);
@@ -492,7 +493,7 @@ void main(void) {
 
             // ETAPE 17
 
-            if (testActif) {
+            if (testActif && !timeout) {
 
                 displayManager("ETAPE 17", "TEST LEDS BLEUES", LIGNE_VIDE, ANSWER);
                 IN48();
@@ -501,8 +502,8 @@ void main(void) {
                 __delay_ms(800);
 
                 printf("Attente validation leds bleues\r\n");
-                testVoyants = reponseOperateur(automatique);
-                if (!testVoyants) {
+                testVoyants = reponseOperateur(automatique, &timeout);
+                if (!testVoyants && !timeout) {
 
                     testActif = false;
                     alerteDefaut("ETAPE 17", &testActif, &testVoyants);
@@ -515,13 +516,26 @@ void main(void) {
 
             if (testActif) {
 
-                displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", ACQ);
-                ledConforme(true);
+                if (!timeout) {
+
+                    displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", ACQ);
+                    ledConforme(true);
+
+                } else {
+
+                    displayManager("FIN DE TEST", "HORS DELAI", "REPETER TEST", ACQ);
+                    ledsAlerte();
+                    
+                }
+
                 rasAlimention();
+                activerReed(false);
+                REL6_SetLow();
                 okAlert();
+                cps = 0;
                 attenteAquittement(&automatique, &testActif);
                 initialConditions(&testActif, &testVoyants, &automatique);
-                cps = 0;
+                timeout = false;
                 __delay_ms(2000);
 
             }

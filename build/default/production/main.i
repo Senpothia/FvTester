@@ -5789,7 +5789,7 @@ void ledNonConforme(_Bool active);
 void ledConforme(_Bool active);
 void ledProgession(_Bool active);
 void alerteDefaut(char etape[], _Bool *, _Bool *);
-_Bool reponseOperateur(_Bool automatique);
+_Bool reponseOperateur(_Bool automatique, _Bool *);
 void activerBuzzer();
 void startAlert(void);
 void errorAlert(void);
@@ -5904,6 +5904,7 @@ void main(void) {
     char messageDefautCP[20];
     int cps = 0;
     _Bool erreurCPs = 0;
+    _Bool timeout = 0;
 
 
 
@@ -6297,8 +6298,8 @@ void main(void) {
                 _delay((unsigned long)((800)*(16000000/4000.0)));
 
                 printf("Attente validation led vertes\r\n");
-                testVoyants = reponseOperateur(automatique);
-                if (!testVoyants) {
+                testVoyants = reponseOperateur(automatique, &timeout);
+                if (!testVoyants && !timeout) {
 
                     testActif = 0;
                     alerteDefaut("ETAPE 3", &testActif, &testVoyants);
@@ -6309,7 +6310,7 @@ void main(void) {
 
 
 
-            if (testActif) {
+            if (testActif && !timeout) {
 
                 displayManager("ETAPE 17", "TEST LEDS BLEUES", "", "APPUYER SUR OK/NOK");
                 IN48();
@@ -6318,8 +6319,8 @@ void main(void) {
                 _delay((unsigned long)((800)*(16000000/4000.0)));
 
                 printf("Attente validation leds bleues\r\n");
-                testVoyants = reponseOperateur(automatique);
-                if (!testVoyants) {
+                testVoyants = reponseOperateur(automatique, &timeout);
+                if (!testVoyants && !timeout) {
 
                     testActif = 0;
                     alerteDefaut("ETAPE 17", &testActif, &testVoyants);
@@ -6332,13 +6333,26 @@ void main(void) {
 
             if (testActif) {
 
-                displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", "ATTENTE ACQUITTEMENT");
-                ledConforme(1);
+                if (!timeout) {
+
+                    displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", "ATTENTE ACQUITTEMENT");
+                    ledConforme(1);
+
+                } else {
+
+                    displayManager("FIN DE TEST", "HORS DELAI", "REPETER TEST", "ATTENTE ACQUITTEMENT");
+                    ledsAlerte();
+
+                }
+
                 rasAlimention();
+                activerReed(0);
+                do { LATAbits.LATA5 = 0; } while(0);
                 okAlert();
+                cps = 0;
                 attenteAquittement(&automatique, &testActif);
                 initialConditions(&testActif, &testVoyants, &automatique);
-                cps = 0;
+                timeout = 0;
                 _delay((unsigned long)((2000)*(16000000/4000.0)));
 
             }
