@@ -35,12 +35,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 "32 ./tester.h
 [; ;./tester.h: 32: int testCP(void);
 [v _testCP `(i ~T0 @X0 0 ef ]
-"13
-[; ;./tester.h: 13: void errorAlert(void);
-[v _errorAlert `(v ~T0 @X0 0 ef ]
 "35
 [; ;./tester.h: 35: void ledsAlerte(void);
 [v _ledsAlerte `(v ~T0 @X0 0 ef ]
+"13
+[; ;./tester.h: 13: void errorAlert(void);
+[v _errorAlert `(v ~T0 @X0 0 ef ]
 "34 C:\Program Files\Microchip\xc8\v2.32\pic\include\c99\string.h
 [; ;C:\Program Files\Microchip\xc8\v2.32\pic\include\c99\string.h: 34: char *strncpy (char *restrict, const char *restrict, size_t);
 [v _strncpy `(*uc ~T0 @X0 0 ef3`*uc`*Cuc`ui ]
@@ -692,7 +692,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _erreurCPs `a ~T0 @X0 1 a ]
 [e = _erreurCPs -> -> 0 `i `a ]
 "93
-[; ;main.c: 93:     displayManager("TEST CARTE D855ED2!", "POSITIONNER CARTE", "APPUYER SUR OK", "");
+[; ;main.c: 93:     displayManager("TEST CARTE D855ED2", "POSITIONNER CARTE", "APPUYER SUR OK", "");
 [e ( _displayManager (4 , , , :s 1C :s 2C :s 3C :s 4C ]
 "94
 [; ;main.c: 94:     _delay((unsigned long)((1000)*(16000000/4000.0)));
@@ -709,11 +709,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! != _cps -> 0 `i 389  ]
 {
 "105
-[; ;main.c: 105:             errorAlert();
-[e ( _errorAlert ..  ]
-"106
-[; ;main.c: 106:             ledsAlerte();
+[; ;main.c: 105:             ledsAlerte();
 [e ( _ledsAlerte ..  ]
+"106
+[; ;main.c: 106:             errorAlert();
+[e ( _errorAlert ..  ]
 "107
 [; ;main.c: 107:             int tentatives = 0;
 [v _tentatives `i ~T0 @X0 1 a ]
@@ -765,7 +765,7 @@ Version 4.0 HI-TECH Software Intermediate Code
  393 ]
 [e :U 393 ]
 "127
-[; ;main.c: 127:                 displayManager("TEST CARTE D855ED2!", messageDefautCP, "PLACER CARTE REF", "ATTENTE ACQUITTEMENT");
+[; ;main.c: 127:                 displayManager("TEST CARTE D855ED2", messageDefautCP, "PLACER CARTE REF", "ATTENTE ACQUITTEMENT");
 [e ( _displayManager (4 , , , :s 8C &U _messageDefautCP :s 9C :s 10C ]
 "128
 [; ;main.c: 128:                 attenteOK();
@@ -811,7 +811,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 400 ]
 {
 "145
-[; ;main.c: 145:             displayManager("TEST CARTE D855ED2!", messageDefautCP, "MAINTENANCE NECESSAIRE", "REDEMARREZ BANC");
+[; ;main.c: 145:             displayManager("TEST CARTE D855ED2", messageDefautCP, "MAINTENANCE NECESSAIRE", "REDEMARREZ BANC");
 [e ( _displayManager (4 , , , :s 11C &U _messageDefautCP :s 12C :s 13C ]
 "146
 [; ;main.c: 146:         }
@@ -826,7 +826,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ ! ! != -> _erreurCPs `i -> 0 `i 402  ]
 {
 "152
-[; ;main.c: 152:             displayManager("TEST CARTE D855ED2!", "ATTENTE DEMARRAGE", "", "APPUYER SUR OK");
+[; ;main.c: 152:             displayManager("TEST CARTE D855ED2", "ATTENTE DEMARRAGE", "", "APPUYER SUR OK");
 [e ( _displayManager (4 , , , :s 14C :s 15C :s 16C :s 17C ]
 "153
 [; ;main.c: 153:             _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1741,6 +1741,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [a 37C 69 84 65 80 69 32 51 0 ]
 [a 98C 69 84 65 80 69 32 51 0 ]
 [a 7C 68 69 70 65 85 84 32 67 80 49 32 69 84 32 67 80 50 0 ]
+[a 1C 84 69 83 84 32 67 65 82 84 69 32 68 56 53 53 69 68 50 0 ]
+[a 8C 84 69 83 84 32 67 65 82 84 69 32 68 56 53 53 69 68 50 0 ]
+[a 11C 84 69 83 84 32 67 65 82 84 69 32 68 56 53 53 69 68 50 0 ]
+[a 14C 84 69 83 84 32 67 65 82 84 69 32 68 56 53 53 69 68 50 0 ]
 [a 73C 69 84 65 80 69 32 49 50 0 ]
 [a 77C 69 84 65 80 69 32 49 50 0 ]
 [a 23C 69 84 65 80 69 32 50 0 ]
@@ -1751,10 +1755,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 [a 22C 69 84 65 80 69 32 49 0 ]
 [a 63C 69 84 65 80 69 32 49 48 0 ]
 [a 67C 69 84 65 80 69 32 49 48 0 ]
-[a 1C 84 69 83 84 32 67 65 82 84 69 32 68 56 53 53 69 68 50 33 0 ]
-[a 8C 84 69 83 84 32 67 65 82 84 69 32 68 56 53 53 69 68 50 33 0 ]
-[a 11C 84 69 83 84 32 67 65 82 84 69 32 68 56 53 53 69 68 50 33 0 ]
-[a 14C 84 69 83 84 32 67 65 82 84 69 32 68 56 53 53 69 68 50 33 0 ]
 [a 6C 68 69 70 65 85 84 32 67 80 50 32 32 32 32 32 32 32 0 ]
 [a 5C 68 69 70 65 85 84 32 67 80 49 32 32 32 32 32 32 32 0 ]
 [a 103C 65 116 116 101 110 116 101 32 118 97 108 105 100 97 116 105 111 110 32 108 101 100 115 32 98 108 101 117 101 115 13 10 0 ]

@@ -5907,7 +5907,7 @@ void main(void) {
 
 
 
-    displayManager("TEST CARTE D855ED2!", "POSITIONNER CARTE", "APPUYER SUR OK", "");
+    displayManager("TEST CARTE D855ED2", "POSITIONNER CARTE", "APPUYER SUR OK", "");
     _delay((unsigned long)((1000)*(16000000/4000.0)));
 
 
@@ -5919,8 +5919,8 @@ void main(void) {
 
         if (cps != 0) {
 
-            errorAlert();
             ledsAlerte();
+            errorAlert();
             int tentatives = 0;
             while (tentatives < 2 && cps != 0) {
 
@@ -5941,7 +5941,7 @@ void main(void) {
 
                 }
 
-                displayManager("TEST CARTE D855ED2!", messageDefautCP, "PLACER CARTE REF", "ATTENTE ACQUITTEMENT");
+                displayManager("TEST CARTE D855ED2", messageDefautCP, "PLACER CARTE REF", "ATTENTE ACQUITTEMENT");
                 attenteOK();
                 debloquerCPs();
                 cps = testCP();
@@ -5959,14 +5959,14 @@ void main(void) {
 
         while (erreurCPs) {
 
-            displayManager("TEST CARTE D855ED2!", messageDefautCP, "MAINTENANCE NECESSAIRE", "REDEMARREZ BANC");
+            displayManager("TEST CARTE D855ED2", messageDefautCP, "MAINTENANCE NECESSAIRE", "REDEMARREZ BANC");
         }
 
         if (!erreurCPs) {
 
 
 
-            displayManager("TEST CARTE D855ED2!", "ATTENTE DEMARRAGE", "", "APPUYER SUR OK");
+            displayManager("TEST CARTE D855ED2", "ATTENTE DEMARRAGE", "", "APPUYER SUR OK");
             _delay((unsigned long)((100)*(16000000/4000.0)));
 
             attenteDemarrage(&automatique, &testActif);

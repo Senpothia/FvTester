@@ -5,7 +5,7 @@ Linker command line:
 -W-3 --edf=C:\Program Files\Microchip\xc8\v2.32\pic\dat\en_msgs.txt -cn \
   -h+dist/default/production\free-voltage.production.sym \
   --cmf=dist/default/production\free-voltage.production.cmf -z -Q16LF1939 \
-  -oC:\Users\Michel\AppData\Local\Temp\xcAsrjg.4 --defsym=__MPLAB_BUILD=1 \
+  -oC:\Users\Michel\AppData\Local\Temp\xcAs1p8.4 --defsym=__MPLAB_BUILD=1 \
   -Mdist/default/production/free-voltage.production.map -E1 \
   -ver=XC8 Compiler --acfsm=1493 -ASTACK=0212Fh-023EFh -pstack=STACK \
   -ACODE=00h-07FFhx8 -ASTRCODE=00h-03FFFh -ASTRING=00h-0FFhx64 \
@@ -32,7 +32,7 @@ Linker command line:
   -peeprom_data=EEDATA -DEEDATA=2 -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 \
   -DENTRY=2 -preset_vec=00h,intentry=04h,init,end_init -ppowerup=CODE \
   -pcinit=CODE -pfunctab=ENTRY -k \
-  C:\Users\Michel\AppData\Local\Temp\xcAsrjg.o \
+  C:\Users\Michel\AppData\Local\Temp\xcAs1p8.o \
   dist/default/production\free-voltage.production.o 
 
 Object code version is 3.11
@@ -42,7 +42,7 @@ Machine type is 16LF1939
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\Michel\AppData\Local\Temp\xcAsrjg.o
+C:\Users\Michel\AppData\Local\Temp\xcAs1p8.o
                 end_init                             4A       4A        2        8       0
                 reset_vec                             0        0        2        0       0
                 config                             8007     8007        2        0       4
@@ -177,42 +177,42 @@ dist/default/production\free-voltage.production.o
                 bssBANK1                             A0       A0       32       A0       1
                 bssBANK0                             56       56        7       20       1
                 bssCOMMON                            7D       7D        1       70       1
-                stringtext43                       1A58     1A58        8     3000       0
-                stringtext42                       1A50     1A50        8     3000       0
-                stringtext41                       1A48     1A48        8     3000       0
-                stringtext40                       1A40     1A40        8     3000       0
-                stringtext39                       1A38     1A38        8     3000       0
-                stringtext38                       1A30     1A30        8     3000       0
-                stringtext37                       1A28     1A28        8     3000       0
-                stringtext36                       1A20     1A20        8     3000       0
-                stringtext35                       1A18     1A18        8     3000       0
-                stringtext34                       1A10     1A10        8     3000       0
-                stringtext33                       1A07     1A07        9     3000       0
-                stringtext32                       19FE     19FE        9     3000       0
-                stringtext31                       19F5     19F5        9     3000       0
-                stringtext30                       19EC     19EC        9     3000       0
-                stringtext29                       19E3     19E3        9     3000       0
-                stringtext28                       19DA     19DA        9     3000       0
-                stringtext27                       19D1     19D1        9     3000       0
-                stringtext26                       19C8     19C8        9     3000       0
-                stringtext25                       19BC     19BC        C     3000       0
-                stringtext24                       19AF     19AF        D     3000       0
-                stringtext23                       19A2     19A2        D     3000       0
-                stringtext22                       1994     1994        E     3000       0
-                stringtext21                       1985     1985        F     3000       0
-                stringtext20                       1975     1975       10     3000       0
-                stringtext19                       1964     1964       11     3000       0
-                stringtext18                       1953     1953       11     3000       0
-                stringtext17                       1942     1942       11     3000       0
-                stringtext16                       1930     1930       12     3000       0
-                stringtext15                       191E     191E       12     3000       0
-                stringtext14                       190C     190C       12     3000       0
-                stringtext13                       18FA     18FA       12     3000       0
-                stringtext12                       18E8     18E8       12     3000       0
-                stringtext11                       18D6     18D6       12     3000       0
-                stringtext10                       18C3     18C3       13     3000       0
-                stringtext9                        18B0     18B0       13     3000       0
-                stringtext8                        189C     189C       14     3000       0
+                stringtext43                       1A57     1A57        8     3000       0
+                stringtext42                       1A4F     1A4F        8     3000       0
+                stringtext41                       1A47     1A47        8     3000       0
+                stringtext40                       1A3F     1A3F        8     3000       0
+                stringtext39                       1A37     1A37        8     3000       0
+                stringtext38                       1A2F     1A2F        8     3000       0
+                stringtext37                       1A27     1A27        8     3000       0
+                stringtext36                       1A1F     1A1F        8     3000       0
+                stringtext35                       1A17     1A17        8     3000       0
+                stringtext34                       1A0F     1A0F        8     3000       0
+                stringtext33                       1A06     1A06        9     3000       0
+                stringtext32                       19FD     19FD        9     3000       0
+                stringtext31                       19F4     19F4        9     3000       0
+                stringtext30                       19EB     19EB        9     3000       0
+                stringtext29                       19E2     19E2        9     3000       0
+                stringtext28                       19D9     19D9        9     3000       0
+                stringtext27                       19D0     19D0        9     3000       0
+                stringtext26                       19C7     19C7        9     3000       0
+                stringtext25                       19BB     19BB        C     3000       0
+                stringtext24                       19AE     19AE        D     3000       0
+                stringtext23                       19A1     19A1        D     3000       0
+                stringtext22                       1993     1993        E     3000       0
+                stringtext21                       1984     1984        F     3000       0
+                stringtext20                       1974     1974       10     3000       0
+                stringtext19                       1963     1963       11     3000       0
+                stringtext18                       1952     1952       11     3000       0
+                stringtext17                       1941     1941       11     3000       0
+                stringtext16                       192F     192F       12     3000       0
+                stringtext15                       191D     191D       12     3000       0
+                stringtext14                       190B     190B       12     3000       0
+                stringtext13                       18F9     18F9       12     3000       0
+                stringtext12                       18E7     18E7       12     3000       0
+                stringtext11                       18D5     18D5       12     3000       0
+                stringtext10                       18C2     18C2       13     3000       0
+                stringtext9                        18AF     18AF       13     3000       0
+                stringtext8                        189C     189C       13     3000       0
                 stringtext7                        1887     1887       15     3000       0
                 stringtext6                        1872     1872       15     3000       0
                 stringtext5                        185B     185B       17     3000       0
@@ -349,42 +349,42 @@ TOTAL           Name                               Link     Load   Length     Sp
                 idataBANK1                         145D     145D        1         0
 
         CLASS   STRCODE        
-                stringtext43                       1A58     1A58        8         0
-                stringtext42                       1A50     1A50        8         0
-                stringtext41                       1A48     1A48        8         0
-                stringtext40                       1A40     1A40        8         0
-                stringtext39                       1A38     1A38        8         0
-                stringtext38                       1A30     1A30        8         0
-                stringtext37                       1A28     1A28        8         0
-                stringtext36                       1A20     1A20        8         0
-                stringtext35                       1A18     1A18        8         0
-                stringtext34                       1A10     1A10        8         0
-                stringtext33                       1A07     1A07        9         0
-                stringtext32                       19FE     19FE        9         0
-                stringtext31                       19F5     19F5        9         0
-                stringtext30                       19EC     19EC        9         0
-                stringtext29                       19E3     19E3        9         0
-                stringtext28                       19DA     19DA        9         0
-                stringtext27                       19D1     19D1        9         0
-                stringtext26                       19C8     19C8        9         0
-                stringtext25                       19BC     19BC        C         0
-                stringtext24                       19AF     19AF        D         0
-                stringtext23                       19A2     19A2        D         0
-                stringtext22                       1994     1994        E         0
-                stringtext21                       1985     1985        F         0
-                stringtext20                       1975     1975       10         0
-                stringtext19                       1964     1964       11         0
-                stringtext18                       1953     1953       11         0
-                stringtext17                       1942     1942       11         0
-                stringtext16                       1930     1930       12         0
-                stringtext15                       191E     191E       12         0
-                stringtext14                       190C     190C       12         0
-                stringtext13                       18FA     18FA       12         0
-                stringtext12                       18E8     18E8       12         0
-                stringtext11                       18D6     18D6       12         0
-                stringtext10                       18C3     18C3       13         0
-                stringtext9                        18B0     18B0       13         0
-                stringtext8                        189C     189C       14         0
+                stringtext43                       1A57     1A57        8         0
+                stringtext42                       1A4F     1A4F        8         0
+                stringtext41                       1A47     1A47        8         0
+                stringtext40                       1A3F     1A3F        8         0
+                stringtext39                       1A37     1A37        8         0
+                stringtext38                       1A2F     1A2F        8         0
+                stringtext37                       1A27     1A27        8         0
+                stringtext36                       1A1F     1A1F        8         0
+                stringtext35                       1A17     1A17        8         0
+                stringtext34                       1A0F     1A0F        8         0
+                stringtext33                       1A06     1A06        9         0
+                stringtext32                       19FD     19FD        9         0
+                stringtext31                       19F4     19F4        9         0
+                stringtext30                       19EB     19EB        9         0
+                stringtext29                       19E2     19E2        9         0
+                stringtext28                       19D9     19D9        9         0
+                stringtext27                       19D0     19D0        9         0
+                stringtext26                       19C7     19C7        9         0
+                stringtext25                       19BB     19BB        C         0
+                stringtext24                       19AE     19AE        D         0
+                stringtext23                       19A1     19A1        D         0
+                stringtext22                       1993     1993        E         0
+                stringtext21                       1984     1984        F         0
+                stringtext20                       1974     1974       10         0
+                stringtext19                       1963     1963       11         0
+                stringtext18                       1952     1952       11         0
+                stringtext17                       1941     1941       11         0
+                stringtext16                       192F     192F       12         0
+                stringtext15                       191D     191D       12         0
+                stringtext14                       190B     190B       12         0
+                stringtext13                       18F9     18F9       12         0
+                stringtext12                       18E7     18E7       12         0
+                stringtext11                       18D5     18D5       12         0
+                stringtext10                       18C2     18C2       13         0
+                stringtext9                        18AF     18AF       13         0
+                stringtext8                        189C     189C       13         0
                 stringtext7                        1887     1887       15         0
                 stringtext6                        1872     1872       15         0
                 stringtext5                        185B     185B       17         0
@@ -654,7 +654,7 @@ SEGMENTS        Name                           Load    Length   Top    Selector 
                 text38                         00179C  00001F  0017BB      2F38       0  CODE        2
                 text24                         0017BB  000022  0017DD      2F76       0  CODE        2
                 text107                        0017DD  000023  001800      2FBA       0  CODE        2
-                stringtext2                    001800  000260  001A60      3000       0  STRCODE     2
+                stringtext2                    001800  00025F  001A5F      3000       0  STRCODE     2
 
 
 UNUSED ADDRESS RANGES
@@ -675,12 +675,12 @@ UNUSED ADDRESS RANGES
         BANK9            004A0-004EF              50           1
         BIGRAM           02000-023EF             3F0           1
         CODE             0104A-0145B             412           2
-                         01A60-03FFF             800
+                         01A5F-03FFF             800
         CONST            0104A-0145B             100           2
-                         01A60-03FFF             100
+                         01A5F-03FFF             100
         EEDATA           0F000-0F0FF             100           2
         ENTRY            0104A-0145B             100           2
-                         01A60-03FFF             100
+                         01A5F-03FFF             100
         RAM              0005D-0006F              13           1
                          000EF-000EF               1
                          00158-0016F              18
@@ -728,9 +728,9 @@ UNUSED ADDRESS RANGES
         SFR9             00480-0049F              20           1
         STACK            0212F-023EF             2C1           1
         STRCODE          0104A-0145B             412           2
-                         01A60-03FFF            25A0
+                         01A5F-03FFF            25A1
         STRING           0104A-0145B             100           2
-                         01A60-03FFF             100
+                         01A5F-03FFF             100
 
                                   Symbol Table
 
@@ -1013,7 +1013,7 @@ __Hsfr6                                        sfr6         00000
 __Hsfr7                                        sfr7         00000
 __Hsfr8                                        sfr8         00000
 __Hsfr9                                        sfr9         00000
-__Hspace_0                                     (abs)        01A60
+__Hspace_0                                     (abs)        01A5F
 __Hspace_1                                     (abs)        001DF
 __Hspace_2                                     (abs)        00000
 __Hspace_3                                     (abs)        00000
@@ -1212,7 +1212,7 @@ __Lstringtext7                                 stringtext7  00000
 __Lstringtext8                                 stringtext8  00000
 __Lstringtext9                                 stringtext9  00000
 __Ltext                                        text         00000
-__S0                                           (abs)        01A60
+__S0                                           (abs)        01A5F
 __S1                                           (abs)        001DF
 __S2                                           (abs)        00000
 __S3                                           (abs)        00000
@@ -1353,49 +1353,49 @@ __pidataBANK2                                  idataBANK2   0175F
 __pintentry                                    intentry     00004
 __pmaintext                                    maintext     00868
 __pstringtext1                                 stringtext1  01000
-__pstringtext10                                stringtext10 018C3
-__pstringtext11                                stringtext11 018D6
-__pstringtext12                                stringtext12 018E8
-__pstringtext13                                stringtext13 018FA
-__pstringtext14                                stringtext14 0190C
-__pstringtext15                                stringtext15 0191E
-__pstringtext16                                stringtext16 01930
-__pstringtext17                                stringtext17 01942
-__pstringtext18                                stringtext18 01953
-__pstringtext19                                stringtext19 01964
+__pstringtext10                                stringtext10 018C2
+__pstringtext11                                stringtext11 018D5
+__pstringtext12                                stringtext12 018E7
+__pstringtext13                                stringtext13 018F9
+__pstringtext14                                stringtext14 0190B
+__pstringtext15                                stringtext15 0191D
+__pstringtext16                                stringtext16 0192F
+__pstringtext17                                stringtext17 01941
+__pstringtext18                                stringtext18 01952
+__pstringtext19                                stringtext19 01963
 __pstringtext2                                 stringtext2  01800
-__pstringtext20                                stringtext20 01975
-__pstringtext21                                stringtext21 01985
-__pstringtext22                                stringtext22 01994
-__pstringtext23                                stringtext23 019A2
-__pstringtext24                                stringtext24 019AF
-__pstringtext25                                stringtext25 019BC
-__pstringtext26                                stringtext26 019C8
-__pstringtext27                                stringtext27 019D1
-__pstringtext28                                stringtext28 019DA
-__pstringtext29                                stringtext29 019E3
+__pstringtext20                                stringtext20 01974
+__pstringtext21                                stringtext21 01984
+__pstringtext22                                stringtext22 01993
+__pstringtext23                                stringtext23 019A1
+__pstringtext24                                stringtext24 019AE
+__pstringtext25                                stringtext25 019BB
+__pstringtext26                                stringtext26 019C7
+__pstringtext27                                stringtext27 019D0
+__pstringtext28                                stringtext28 019D9
+__pstringtext29                                stringtext29 019E2
 __pstringtext3                                 stringtext3  01821
-__pstringtext30                                stringtext30 019EC
-__pstringtext31                                stringtext31 019F5
-__pstringtext32                                stringtext32 019FE
-__pstringtext33                                stringtext33 01A07
-__pstringtext34                                stringtext34 01A10
-__pstringtext35                                stringtext35 01A18
-__pstringtext36                                stringtext36 01A20
-__pstringtext37                                stringtext37 01A28
-__pstringtext38                                stringtext38 01A30
-__pstringtext39                                stringtext39 01A38
+__pstringtext30                                stringtext30 019EB
+__pstringtext31                                stringtext31 019F4
+__pstringtext32                                stringtext32 019FD
+__pstringtext33                                stringtext33 01A06
+__pstringtext34                                stringtext34 01A0F
+__pstringtext35                                stringtext35 01A17
+__pstringtext36                                stringtext36 01A1F
+__pstringtext37                                stringtext37 01A27
+__pstringtext38                                stringtext38 01A2F
+__pstringtext39                                stringtext39 01A37
 __pstringtext4                                 stringtext4  01841
-__pstringtext40                                stringtext40 01A40
-__pstringtext41                                stringtext41 01A48
-__pstringtext42                                stringtext42 01A50
-__pstringtext43                                stringtext43 01A58
+__pstringtext40                                stringtext40 01A3F
+__pstringtext41                                stringtext41 01A47
+__pstringtext42                                stringtext42 01A4F
+__pstringtext43                                stringtext43 01A57
 __pstringtext44                                stringtext44 00000
 __pstringtext5                                 stringtext5  0185B
 __pstringtext6                                 stringtext6  01872
 __pstringtext7                                 stringtext7  01887
 __pstringtext8                                 stringtext8  0189C
-__pstringtext9                                 stringtext9  018B0
+__pstringtext9                                 stringtext9  018AF
 __ptext1                                       text1        00821
 __ptext10                                      text10       00800
 __ptext100                                     text100      01614

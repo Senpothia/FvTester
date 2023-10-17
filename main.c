@@ -101,9 +101,9 @@ void main(void) {
         cps = testCP();
 
         if (cps != 0) {
-            
-            errorAlert();
+
             ledsAlerte();
+            errorAlert();
             int tentatives = 0;
             while (tentatives < 2 && cps != 0) {
 
