@@ -5972,6 +5972,8 @@ void alerteDefaut(char etape[], _Bool *testAct, _Bool *testVoy) {
     ledProgession(1);
     ledConforme(0);
     rasAlimention();
+    activerReed(0);
+    do { LATAbits.LATA5 = 0; } while(0);
     displayManager(etape, "TEST NON CONFORME", "ATTENTE ACQUITTEMENT", "");
     printf(strcat(strcat(error, etape), eol));
     errorAlert();

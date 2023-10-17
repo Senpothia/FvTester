@@ -98,6 +98,8 @@ void alerteDefaut(char etape[], bool *testAct, bool *testVoy) {
     ledProgession(true);
     ledConforme(false);
     rasAlimention();
+    activerReed(false);
+    REL6_SetLow();
     displayManager(etape, NON_CONFORME, ACQ, LIGNE_VIDE);
     printf(strcat(strcat(error, etape), eol));
     errorAlert();
@@ -438,7 +440,7 @@ bool testFermeture(bool active) {
 
             result = true;
         } else {
-            
+
             ledsAlerte();
             erreur = true;
             while (erreur && nbrErreurs < 3) {
@@ -460,7 +462,7 @@ bool testFermeture(bool active) {
 
             result = true;
         } else {
-            
+
             ledsAlerte();
             erreur = true;
             while (erreur && nbrErreurs < 3) {

@@ -290,53 +290,53 @@ I2C_NULL 5
 [v _ledProgession ledProgession `(v  1 e 1 0 ]
 "93
 [v _alerteDefaut alerteDefaut `(v  1 e 1 0 ]
-"114
+"116
 [v _reponseOperateur reponseOperateur `(a  1 e 1 0 ]
-"185
+"187
 [v _initialConditions initialConditions `(v  1 e 1 0 ]
-"201
+"203
 [v _activerBuzzer activerBuzzer `(v  1 e 1 0 ]
-"216
+"218
 [v _startAlert startAlert `(v  1 e 1 0 ]
-"227
+"229
 [v _errorAlert errorAlert `(v  1 e 1 0 ]
-"243
+"245
 [v _okAlert okAlert `(v  1 e 1 0 ]
-"256
+"258
 [v _attenteDemarrage attenteDemarrage `(v  1 e 1 0 ]
-"291
+"293
 [v _attenteAquittement attenteAquittement `(v  1 e 1 0 ]
-"328
+"330
 [v _sortieErreur sortieErreur `(v  1 e 1 0 ]
-"361
+"363
 [v _rasAlimention rasAlimention `(v  1 e 1 0 ]
-"371
+"373
 [v _IN12 IN12 `(v  1 e 1 0 ]
-"378
+"380
 [v _IN48 IN48 `(v  1 e 1 0 ]
-"385
+"387
 [v _TC12 TC12 `(v  1 e 1 0 ]
-"392
+"394
 [v _TC48 TC48 `(v  1 e 1 0 ]
-"399
+"401
 [v _IN_OFF IN_OFF `(v  1 e 1 0 ]
-"405
+"407
 [v _TC_OFF TC_OFF `(v  1 e 1 0 ]
-"412
+"414
 [v _modeBP modeBP `(v  1 e 1 0 ]
-"428
+"430
 [v _testFermeture testFermeture `(a  1 e 1 0 ]
-"483
+"485
 [v _activerReed activerReed `(v  1 e 1 0 ]
-"496
+"498
 [v _activerBP activerBP `(v  1 e 1 0 ]
-"509
+"511
 [v _testCP testCP `(i  1 e 2 0 ]
-"531
+"533
 [v _debloquerCPs debloquerCPs `(v  1 e 1 0 ]
-"543
+"545
 [v _attenteOK attenteOK `(v  1 e 1 0 ]
-"550
+"552
 [v _ledsAlerte ledsAlerte `(v  1 e 1 0 ]
 "213 C:\Users\Michel\MPLABXProjects\free-voltage/mcc_generated_files/i2c_master.h
 [v _MSSP_InterruptHandler MSSP_InterruptHandler `*.37(v  1 e 2 0 ]
@@ -745,33 +745,33 @@ I2C_NULL 5
 [v main@erreurCPs erreurCPs `a  1 a 1 22 ]
 "550
 } 0
-"428 C:\Users\Michel\MPLABXProjects\free-voltage\tester.c
+"430 C:\Users\Michel\MPLABXProjects\free-voltage\tester.c
 [v _testFermeture testFermeture `(a  1 e 1 0 ]
 {
 [v testFermeture@active active `a  1 a 1 wreg ]
-"432
+"434
 [v testFermeture@nbrErreurs nbrErreurs `i  1 a 2 8 ]
-"433
+"435
 [v testFermeture@erreur erreur `a  1 a 1 10 ]
-"431
+"433
 [v testFermeture@result result `a  1 a 1 7 ]
-"428
+"430
 [v testFermeture@active active `a  1 a 1 wreg ]
-"431
+"433
 [v testFermeture@active active `a  1 a 1 6 ]
-"481
+"483
 } 0
-"550
+"552
 [v _ledsAlerte ledsAlerte `(v  1 e 1 0 ]
 {
-"555
+"557
 } 0
-"509
+"511
 [v _testCP testCP `(i  1 e 2 0 ]
 {
-"511
+"513
 [v testCP@result result `i  1 a 2 5 ]
-"529
+"531
 } 0
 "3 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\strncpy.c
 [v _strncpy strncpy `(*.4uc  1 e 1 0 ]
@@ -787,55 +787,55 @@ I2C_NULL 5
 [v strncpy@d d `*.4uc  1 a 1 9 ]
 "15
 } 0
-"328 C:\Users\Michel\MPLABXProjects\free-voltage\tester.c
+"330 C:\Users\Michel\MPLABXProjects\free-voltage\tester.c
 [v _sortieErreur sortieErreur `(v  1 e 1 0 ]
 {
 [v sortieErreur@autom autom `*.4a  1 a 1 wreg ]
 [v sortieErreur@autom autom `*.4a  1 a 1 wreg ]
 [v sortieErreur@testAct testAct `*.4a  1 p 1 43 ]
 [v sortieErreur@testVoy testVoy `*.4a  1 p 1 44 ]
-"330
+"332
 [v sortieErreur@autom autom `*.4a  1 a 1 51 ]
-"334
+"336
 } 0
-"185
+"187
 [v _initialConditions initialConditions `(v  1 e 1 0 ]
 {
 [v initialConditions@testAct testAct `*.39a  1 p 2 35 ]
 [v initialConditions@testVoy testVoy `*.39a  1 p 2 37 ]
 [v initialConditions@autom autom `*.39a  1 p 2 39 ]
-"199
+"201
 } 0
-"291
+"293
 [v _attenteAquittement attenteAquittement `(v  1 e 1 0 ]
 {
-"294
+"296
 [v attenteAquittement@repOperateur repOperateur `a  1 a 1 42 ]
-"293
+"295
 [v attenteAquittement@reception reception `uc  1 a 1 41 ]
-"291
+"293
 [v attenteAquittement@autom autom `*.39a  1 p 2 35 ]
 [v attenteAquittement@testAct testAct `*.39a  1 p 2 37 ]
-"326
+"328
 } 0
-"114
+"116
 [v _reponseOperateur reponseOperateur `(a  1 e 1 0 ]
 {
 [v reponseOperateur@automatique automatique `a  1 a 1 wreg ]
-"157
+"159
 [v reponseOperateur@tempo tempo `l  1 a 4 10 ]
-"117
+"119
 [v reponseOperateur@repOperateur repOperateur `a  1 a 1 15 ]
-"116
-[v reponseOperateur@reponse reponse `a  1 a 1 14 ]
 "118
+[v reponseOperateur@reponse reponse `a  1 a 1 14 ]
+"120
 [v reponseOperateur@reception reception `uc  1 a 1 8 ]
-"114
+"116
 [v reponseOperateur@automatique automatique `a  1 a 1 wreg ]
 [v reponseOperateur@time time `*.4a  1 p 1 5 ]
-"116
+"118
 [v reponseOperateur@automatique automatique `a  1 a 1 9 ]
-"183
+"185
 } 0
 "16
 [v _testOK testOK `(a  1 e 1 0 ]
@@ -861,72 +861,72 @@ I2C_NULL 5
 [v testNOK@active active `a  1 a 1 4 ]
 "59
 } 0
-"243
+"245
 [v _okAlert okAlert `(v  1 e 1 0 ]
 {
-"247
+"249
 [v okAlert@i i `i  1 a 2 36 ]
-"254
+"256
 } 0
-"216
+"218
 [v _startAlert startAlert `(v  1 e 1 0 ]
 {
-"218
+"220
 [v startAlert@i i `i  1 a 2 8 ]
-"225
+"227
 } 0
-"531
+"533
 [v _debloquerCPs debloquerCPs `(v  1 e 1 0 ]
 {
-"541
+"543
 } 0
-"412
+"414
 [v _modeBP modeBP `(v  1 e 1 0 ]
 {
 [v modeBP@active active `a  1 a 1 wreg ]
 [v modeBP@active active `a  1 a 1 wreg ]
-"414
+"416
 [v modeBP@active active `a  1 a 1 3 ]
-"426
+"428
 } 0
-"496
+"498
 [v _activerBP activerBP `(v  1 e 1 0 ]
 {
 [v activerBP@active active `a  1 a 1 wreg ]
 [v activerBP@active active `a  1 a 1 wreg ]
-"498
+"500
 [v activerBP@active active `a  1 a 1 3 ]
-"507
+"509
 } 0
-"399
+"401
 [v _IN_OFF IN_OFF `(v  1 e 1 0 ]
 {
-"403
+"405
 } 0
-"378
+"380
 [v _IN48 IN48 `(v  1 e 1 0 ]
 {
-"383
+"385
 } 0
-"543
+"545
 [v _attenteOK attenteOK `(v  1 e 1 0 ]
 {
-"548
+"550
 } 0
-"256
+"258
 [v _attenteDemarrage attenteDemarrage `(v  1 e 1 0 ]
 {
 [v attenteDemarrage@autom autom `*.4a  1 a 1 wreg ]
-"259
+"261
 [v attenteDemarrage@repOperateur repOperateur `a  1 a 1 39 ]
-"258
+"260
 [v attenteDemarrage@reception reception `uc  1 a 1 38 ]
-"256
+"258
 [v attenteDemarrage@autom autom `*.4a  1 a 1 wreg ]
 [v attenteDemarrage@testAct testAct `*.4a  1 p 1 35 ]
-"259
+"261
 [v attenteDemarrage@autom autom `*.4a  1 a 1 40 ]
-"289
+"291
 } 0
 "151 C:\Users\Michel\MPLABXProjects\free-voltage\mcc_generated_files/eusart.c
 [v _EUSART_Read EUSART_Read `(uc  1 e 1 0 ]
@@ -949,7 +949,7 @@ I2C_NULL 5
 [v alerteDefaut@F3715 F3715 `[20]uc  1 s 20 F3715 ]
 "95
 [v alerteDefaut@F3717 F3717 `[10]uc  1 s 10 F3717 ]
-"112
+"114
 } 0
 "3 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\strcat.c
 [v _strcat strcat `(*.5uc  1 e 1 0 ]
@@ -988,10 +988,10 @@ I2C_NULL 5
 [v strcpy@dest dest `*.5uc  1 a 1 15 ]
 "9
 } 0
-"361 C:\Users\Michel\MPLABXProjects\free-voltage\tester.c
+"363 C:\Users\Michel\MPLABXProjects\free-voltage\tester.c
 [v _rasAlimention rasAlimention `(v  1 e 1 0 ]
 {
-"369
+"371
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\printf.c
 [v _printf printf `(i  1 e 2 0 ]
@@ -1005,41 +1005,41 @@ I2C_NULL 5
 "1390 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\doprnt.c
 [v _vfprintf vfprintf `(i  1 e 2 0 ]
 {
-[s S2414 _IO_FILE 0 ]
-[v vfprintf@fp fp `*.1S2414  1 a 1 wreg ]
+[s S2415 _IO_FILE 0 ]
+[v vfprintf@fp fp `*.1S2415  1 a 1 wreg ]
 "1393
 [v vfprintf@cfmt cfmt `*.26uc  1 a 2 29 ]
 "1390
-[v vfprintf@fp fp `*.1S2414  1 a 1 wreg ]
+[v vfprintf@fp fp `*.1S2415  1 a 1 wreg ]
 [v vfprintf@fmt fmt `*.26DCuc  1 p 2 23 ]
 [v vfprintf@ap ap `*.4*.4v  1 p 1 25 ]
 "1395
 "1390
-[v vfprintf@fp fp `*.1S2414  1 a 1 28 ]
+[v vfprintf@fp fp `*.1S2415  1 a 1 28 ]
 "1404
 } 0
 "692
 [v _vfpfcnvrt vfpfcnvrt `(i  1 s 2 vfpfcnvrt ]
 {
-[s S2414 _IO_FILE 0 ]
-[v vfpfcnvrt@fp fp `*.1S2414  1 a 1 wreg ]
+[s S2415 _IO_FILE 0 ]
+[v vfpfcnvrt@fp fp `*.1S2415  1 a 1 wreg ]
 "699
 [v vfpfcnvrt@vp vp `*.4v  1 a 1 21 ]
 "692
-[v vfpfcnvrt@fp fp `*.1S2414  1 a 1 wreg ]
+[v vfpfcnvrt@fp fp `*.1S2415  1 a 1 wreg ]
 [v vfpfcnvrt@fmt fmt `*.4*.26uc  1 p 1 14 ]
 [v vfpfcnvrt@ap ap `*.4*.4v  1 p 1 15 ]
 "702
 "692
-[v vfpfcnvrt@fp fp `*.1S2414  1 a 1 22 ]
+[v vfpfcnvrt@fp fp `*.1S2415  1 a 1 22 ]
 "1387
 } 0
 "8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\nf_fputc.c
 [v _fputc fputc `(i  1 e 2 0 ]
 {
 [v fputc@c c `i  1 p 2 6 ]
-[s S2398 _IO_FILE 5 `*.1uc 1 buffer 1 0 `i 1 count 2 1 `i 1 limit 2 3 ]
-[v fputc@fp fp `*.1S2398  1 p 1 8 ]
+[s S2399 _IO_FILE 5 `*.1uc 1 buffer 1 0 `i 1 count 2 1 `i 1 limit 2 3 ]
+[v fputc@fp fp `*.1S2399  1 p 1 8 ]
 "24
 } 0
 "201 C:\Users\Michel\MPLABXProjects\free-voltage\mcc_generated_files/eusart.c
@@ -1086,21 +1086,21 @@ I2C_NULL 5
 [v ledConforme@active active `a  1 a 1 3 ]
 "79
 } 0
-"227
+"229
 [v _errorAlert errorAlert `(v  1 e 1 0 ]
 {
-"231
+"233
 [v errorAlert@i i `i  1 a 2 10 ]
-"229
+"231
 [v errorAlert@j j `i  1 a 2 8 ]
-"241
+"243
 } 0
-"201
+"203
 [v _activerBuzzer activerBuzzer `(v  1 e 1 0 ]
 {
-"204
+"206
 [v activerBuzzer@i i `i  1 a 2 4 ]
-"214
+"216
 } 0
 "7 C:\Users\Michel\MPLABXProjects\free-voltage\display.c
 [v _displayManager displayManager `(v  1 e 1 0 ]
@@ -1143,29 +1143,29 @@ I2C_NULL 5
 {
 "187
 } 0
-"483 C:\Users\Michel\MPLABXProjects\free-voltage\tester.c
+"485 C:\Users\Michel\MPLABXProjects\free-voltage\tester.c
 [v _activerReed activerReed `(v  1 e 1 0 ]
 {
 [v activerReed@active active `a  1 a 1 wreg ]
 [v activerReed@active active `a  1 a 1 wreg ]
-"485
+"487
 [v activerReed@active active `a  1 a 1 3 ]
-"494
+"496
 } 0
-"405
+"407
 [v _TC_OFF TC_OFF `(v  1 e 1 0 ]
 {
-"410
+"412
 } 0
-"392
+"394
 [v _TC48 TC48 `(v  1 e 1 0 ]
 {
-"397
+"399
 } 0
-"385
+"387
 [v _TC12 TC12 `(v  1 e 1 0 ]
 {
-"390
+"392
 } 0
 "50 C:\Users\Michel\MPLABXProjects\free-voltage\mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]
@@ -1292,10 +1292,10 @@ I2C_NULL 5
 {
 "22
 } 0
-"371 C:\Users\Michel\MPLABXProjects\free-voltage\tester.c
+"373 C:\Users\Michel\MPLABXProjects\free-voltage\tester.c
 [v _IN12 IN12 `(v  1 e 1 0 ]
 {
-"376
+"378
 } 0
 "9 C:\Users\Michel\MPLABXProjects\free-voltage\I2C_LCD.c
 [v _I2C_Master_Init I2C_Master_Init `(v  1 e 1 0 ]
