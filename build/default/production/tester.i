@@ -6292,11 +6292,27 @@ _Bool testFermeture(_Bool active) {
 
 
     _Bool result = 0;
+    int nbrErreurs = 0;
+    _Bool erreur = 0;
+
     if (active) {
 
         if (PORTDbits.RD0 == 1 && PORTDbits.RD1 == 1) {
 
             result = 1;
+        } else {
+
+            erreur = 1;
+            while (erreur && nbrErreurs < 3) {
+
+                nbrErreurs++;
+                _delay((unsigned long)((200)*(16000000/4000.0)));
+                if (PORTDbits.RD0 == 1 && PORTDbits.RD1 == 1) {
+                    result = 1;
+                    erreur = 0;
+
+                }
+            }
         }
     }
 
@@ -6306,6 +6322,19 @@ _Bool testFermeture(_Bool active) {
 
 
             result = 1;
+        } else {
+
+            erreur = 1;
+            while (erreur && nbrErreurs < 3) {
+
+                nbrErreurs++;
+                _delay((unsigned long)((200)*(16000000/4000.0)));
+                if (PORTDbits.RD0 == 0 && PORTDbits.RD1 == 0) {
+                    result = 1;
+                    erreur = 0;
+                }
+            }
+
         }
     }
 
@@ -6380,7 +6409,7 @@ void attenteOK(void) {
     }
 }
 
-void ledsAlerte(void){
+void ledsAlerte(void) {
 
     ledConforme(1);
     ledNonConforme(1);

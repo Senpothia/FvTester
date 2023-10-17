@@ -418,11 +418,27 @@ bool testFermeture(bool active) {
 
 
     bool result = false;
+    int nbrErreurs = 0;
+    bool erreur = false;
+
     if (active) {
 
         if (IN1_GetValue() == 1 && IN2_GetValue() == 1) {
 
             result = true;
+        } else {
+
+            erreur = true;
+            while (erreur && nbrErreurs < 3) {
+
+                nbrErreurs++;
+                __delay_ms(200);
+                if (IN1_GetValue() == 1 && IN2_GetValue() == 1) {
+                    result = true;
+                    erreur = false;
+
+                }
+            }
         }
     }
 
@@ -430,8 +446,20 @@ bool testFermeture(bool active) {
 
         if (IN1_GetValue() == 0 && IN2_GetValue() == 0) {
 
-
             result = true;
+        } else {
+
+            erreur = true;
+            while (erreur && nbrErreurs < 3) {
+
+                nbrErreurs++;
+                __delay_ms(200);
+                if (IN1_GetValue() == 0 && IN2_GetValue() == 0) {
+                    result = true;
+                    erreur = false;
+                }
+            }
+
         }
     }
 
@@ -506,8 +534,8 @@ void attenteOK(void) {
     }
 }
 
-void ledsAlerte(void){
-    
+void ledsAlerte(void) {
+
     ledConforme(true);
     ledNonConforme(true);
     ledProgession(true);
