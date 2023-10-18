@@ -6214,13 +6214,36 @@ void sortieErreur(_Bool *autom, _Bool *testAct, _Bool *testVoy) {
 _Bool testRelais(_Bool active) {
 
     _Bool result = 0;
+    int nbrErreurs = 0;
+    _Bool erreur = 0;
     if (active) {
 
         if (PORTDbits.RD3 == 0 && PORTDbits.RD4 == 1) {
 
             result = 1;
+        } else {
+
+            ledsAlerte();
+            erreur = 1;
+            while (erreur && nbrErreurs < 3) {
+
+                _delay((unsigned long)((200)*(16000000/4000.0)));
+                if (PORTDbits.RD3 == 0 && PORTDbits.RD4 == 1) {
+
+                    result = 1;
+                    erreur = 0;
+                    ledConforme(0);
+                    ledProgession(1);
+                    ledNonConforme(0);
+                }
+                nbrErreurs++;
+            }
+
+            _delay((unsigned long)((1000)*(16000000/4000.0)));
         }
     }
+
+
 
     if (!active) {
 
@@ -6228,6 +6251,25 @@ _Bool testRelais(_Bool active) {
 
 
             result = 1;
+        } else {
+
+            ledsAlerte();
+            erreur = 1;
+            while (erreur && nbrErreurs < 3) {
+
+                _delay((unsigned long)((200)*(16000000/4000.0)));
+                if (PORTDbits.RD3 == 1 && PORTDbits.RD4 == 0) {
+
+                    result = 1;
+                    erreur = 0;
+                    ledConforme(0);
+                    ledProgession(1);
+                    ledNonConforme(0);
+                }
+                nbrErreurs++;
+            }
+
+            _delay((unsigned long)((1000)*(16000000/4000.0)));
         }
     }
 

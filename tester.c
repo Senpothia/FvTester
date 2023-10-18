@@ -340,11 +340,32 @@ void sortieErreur(bool *autom, bool *testAct, bool *testVoy) {
 bool testRelais(bool active) {
 
     bool result = false;
+    int nbrErreurs = 0;
+    bool erreur = false;
     if (active) {
 
         if (IN4_GetValue() == 0 && IN5_GetValue() == 1) {
 
             result = true;
+        } else {
+
+            ledsAlerte();
+            erreur = true;
+            while (erreur && nbrErreurs < 3) {
+
+                __delay_ms(200);
+                if (IN4_GetValue() == 0 && IN5_GetValue() == 1) {
+
+                    result = true;
+                    erreur = false;
+                    ledConforme(false);
+                    ledProgession(true);
+                    ledNonConforme(false);
+                }
+                nbrErreurs++;
+            }
+
+            __delay_ms(1000);
         }
     }
 
@@ -354,6 +375,25 @@ bool testRelais(bool active) {
 
 
             result = true;
+        } else {
+
+            ledsAlerte();
+            erreur = true;
+            while (erreur && nbrErreurs < 3) {
+
+                __delay_ms(200);
+                if (IN4_GetValue() == 1 && IN5_GetValue() == 0) {
+
+                    result = true;
+                    erreur = false;
+                    ledConforme(false);
+                    ledProgession(true);
+                    ledNonConforme(false);
+                }
+                nbrErreurs++;
+            }
+
+            __delay_ms(1000);
         }
     }
 
