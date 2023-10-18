@@ -6035,6 +6035,13 @@ _Bool reponseOperateur(_Bool automatique, _Bool *time) {
         while (!repOperateur && tempo < 10000000) {
 
             tempo++;
+            ledConforme(1);
+            ledNonConforme(0);
+            _delay((unsigned long)((300)*(16000000/4000.0)));
+            ledConforme(0);
+            ledNonConforme(1);
+            _delay((unsigned long)((300)*(16000000/4000.0)));
+
             if (testNOK(1)) {
                 reponse = 0;
                 repOperateur = 1;
@@ -6054,6 +6061,8 @@ _Bool reponseOperateur(_Bool automatique, _Bool *time) {
 
     }
 
+    ledConforme(0);
+    ledNonConforme(0);
     return reponse;
 
 }
@@ -6242,8 +6251,6 @@ _Bool testRelais(_Bool active) {
             _delay((unsigned long)((1000)*(16000000/4000.0)));
         }
     }
-
-
 
     if (!active) {
 

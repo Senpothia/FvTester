@@ -161,6 +161,13 @@ bool reponseOperateur(bool automatique, bool *time) {
         while (!repOperateur && tempo < 10000000) {
 
             tempo++;
+            ledConforme(true);
+            ledNonConforme(false);
+            __delay_ms(300);
+            ledConforme(false);
+            ledNonConforme(true);
+            __delay_ms(300);
+
             if (testNOK(true)) {
                 reponse = false;
                 repOperateur = true;
@@ -179,7 +186,9 @@ bool reponseOperateur(bool automatique, bool *time) {
 
 
     }
-
+    
+    ledConforme(false);
+    ledNonConforme(false);
     return reponse;
 
 }
