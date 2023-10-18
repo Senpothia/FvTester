@@ -171,10 +171,16 @@ bool reponseOperateur(bool automatique, bool *time) {
             if (testNOK(true)) {
                 reponse = false;
                 repOperateur = true;
+                while(testNOK(true)){
+                    ;
+                }
             }
             if (testOK(true)) {
                 reponse = true;
                 repOperateur = true;
+                  while(testOK(true)){
+                    ;
+                }
             }
         }
 

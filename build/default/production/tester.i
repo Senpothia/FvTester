@@ -6045,10 +6045,16 @@ _Bool reponseOperateur(_Bool automatique, _Bool *time) {
             if (testNOK(1)) {
                 reponse = 0;
                 repOperateur = 1;
+                while(testNOK(1)){
+                    ;
+                }
             }
             if (testOK(1)) {
                 reponse = 1;
                 repOperateur = 1;
+                  while(testOK(1)){
+                    ;
+                }
             }
         }
 
