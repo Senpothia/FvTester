@@ -158,7 +158,7 @@ bool reponseOperateur(bool automatique, bool *time) {
 
         long tempo = 0;
 
-        while (!repOperateur && tempo < 10000000) {
+        while (!repOperateur && tempo < 400) {
 
             tempo++;
             ledConforme(true);
@@ -184,7 +184,7 @@ bool reponseOperateur(bool automatique, bool *time) {
             }
         }
 
-        if (tempo == 10000000) {
+        if (tempo == 400) {
 
             *time = true;
 

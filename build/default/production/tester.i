@@ -6032,7 +6032,7 @@ _Bool reponseOperateur(_Bool automatique, _Bool *time) {
 
         long tempo = 0;
 
-        while (!repOperateur && tempo < 10000000) {
+        while (!repOperateur && tempo < 400) {
 
             tempo++;
             ledConforme(1);
@@ -6058,7 +6058,7 @@ _Bool reponseOperateur(_Bool automatique, _Bool *time) {
             }
         }
 
-        if (tempo == 10000000) {
+        if (tempo == 400) {
 
             *time = 1;
 

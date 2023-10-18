@@ -1046,7 +1046,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _tempo `l ~T0 @X0 1 a ]
 [e = _tempo -> -> 0 `i `l ]
 "161
-[; ;tester.c: 161:         while (!repOperateur && tempo < 10000000) {
+[; ;tester.c: 161:         while (!repOperateur && tempo < 400) {
 [e $U 440  ]
 [e :U 441 ]
 {
@@ -1130,12 +1130,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e :U 440 ]
 "161
-[; ;tester.c: 161:         while (!repOperateur && tempo < 10000000) {
-[e $ && ! != -> _repOperateur `i -> 0 `i < _tempo -> 10000000 `l 441  ]
+[; ;tester.c: 161:         while (!repOperateur && tempo < 400) {
+[e $ && ! != -> _repOperateur `i -> 0 `i < _tempo -> -> 400 `i `l 441  ]
 [e :U 442 ]
 "187
-[; ;tester.c: 187:         if (tempo == 10000000) {
-[e $ ! == _tempo -> 10000000 `l 451  ]
+[; ;tester.c: 187:         if (tempo == 400) {
+[e $ ! == _tempo -> -> 400 `i `l 451  ]
 {
 "189
 [; ;tester.c: 189:             *time = 1;
